@@ -8,7 +8,7 @@ The notebook was written for Google Colab with a Drive-hosted ZIP. It extracts a
 
 ## Recorded environment
 
-Saved training logs show **Python 3.12.12**, **Ultralytics 8.4.14**, **PyTorch 2.9.0+cu126** and an **NVIDIA L4 GPU**. These describe the recorded Colab session. They are not a newly tested installation specification or a guarantee that all cells used the same environment.
+Saved training logs show **Python 3.12.12**, **Ultralytics 8.4.14** and **PyTorch 2.9.0+cu126**. Earlier logs record an **NVIDIA L4**; the later 15-class YOLO11m-seg call in cell 37 records an **NVIDIA A100-SXM4-80GB**. These describe saved sessions, not a newly tested installation specification or a guarantee that all cells used the same environment.
 
 Directly used packages visible in the notebook include `ultralytics`, `numpy`, `pandas`, `PyYAML`, `Pillow` and `iterative-stratification`. The metadata extraction script uses Python's standard library. No complete lockfile was supplied. A new pinned environment should be verified separately rather than inferred from the package list.
 
@@ -39,6 +39,16 @@ These are preparation instructions, not a claim that the training was rerun duri
 | Later experiment summary | Uses validation mAP50–95 to select an epoch per fold; results need a separate test set for unbiased final assessment |
 
 The organisation changes preserve the original source blobs. Logical fixes, a portable CLI and extraction into a Python package are separate future work.
+
+## Rebuild the documentation figures
+
+From the repository root, run:
+
+```bash
+python scripts/documentation/research_figures.py
+```
+
+This uses Matplotlib, NumPy and Pillow to read the saved notebook summary, the existing CSV tables and preserved source images. It extracts `results/yolo11m-layer-summary.csv`, redraws four SVG figures with STIX typography, including a paired microscopy/expert-annotation view from the existing dataset image and label file. It does not execute training or inference. The [architecture guide](architecture.md) and [asset ledger](../assets/README.md) explain the evidence and image sources.
 
 ## Large artifacts
 

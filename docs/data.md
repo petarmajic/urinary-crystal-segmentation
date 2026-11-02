@@ -40,6 +40,38 @@ The source [`data.yaml`](../data/annotated/data.yaml) contains 41 class IDs. Not
 
 This produces 36 unique canonical names. The notebook then removes classes without support and keeps classes present in at least five labeled images, producing the 19-class experiment. The 15-class variant additionally removes `ATZ_atazanavir`, `Cylindre`, `CEF_ceftriaxonate_de_calcium` and `CHOL_cholestérol`. Class IDs are remapped separately for each derived dataset. The source annotations remain unchanged in this repository.
 
+## Segmentation classes
+
+The following table follows the remapped IDs in notebook cell 35. English display names are provided for readability; the original training strings remain in the [source CSV](../metadata/derived/drop4-class-support.csv). Counts describe the prepared 15-class dataset, before fold splitting.
+
+| ID | Code | Display name | Images | Instances |
+| --- | --- | --- | ---: | ---: |
+| 0 | AMO | Amoxicillin trihydrate | 32 | 1,357 |
+| 1 | AU2 | Uric acid dihydrate | 102 | 907 |
+| 2 | Br | Brushite | 62 | 955 |
+| 3 | C1 | Whewellite | 70 | 461 |
+| 4 | C2 | Weddellite | 135 | 485 |
+| 5 | C3 | Caoxite | 25 | 29 |
+| 6 | CAL | Calcite | 23 | 980 |
+| 7 | CYS | Cystine | 97 | 644 |
+| 8 | DHAd | Dihydroxyadenine | 36 | 580 |
+| 9 | NASD | N-acetylsulfadiazine | 15 | 80 |
+| 10 | NASM | N-acetylsulfamethoxazole hydrochloride | 6 | 141 |
+| 11 | PACC | Plaque vitreuse (original wording) | 16 | 43 |
+| 12 | PAM | Struvite | 49 | 359 |
+| 13 | UrAm | Anhydrous ammonium urate | 8 | 268 |
+| 14 | VAT | Vaterite | 15 | 82 |
+
+The instance counts sum to **7,371**. Image counts overlap because an image can contain more than one class. `PACC_Plaque_vitreuse` remains a source training category; no additional clinical interpretation is assigned to it. These labels identify annotated objects, rather than assigning one class to the entire microscopy image.
+
+## Annotation example
+
+![Original microscopy field alongside all seven C2 weddellite polygons from the expert annotation file.](../assets/annotation-example.svg)
+
+The field is `C2_taill_heter_lb.jpg` from `data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/`. The matching `.txt` file under `data/annotated/labels/train/` contains seven polygons, all assigned source ID **15 / C2_weddellite**. That source ID maps to **4** in the retained 15-class vocabulary. No original image, polygon coordinates or class IDs have been modified.
+
+The figure draws every polygon from this label file after scaling its normalised vertices to the source image dimensions. It shows expert annotations, not inferred masks or a ground-truth/prediction comparison. No exact training/validation fold is assigned to this illustration. [Full source vocabulary](../data/annotated/data.yaml) · [Recorded model predictions](media-guide.md#prediction-collage).
+
 ## Class imbalance
 
 ![Recorded image and instance support for each of the 15 retained classes](../assets/class-support.svg)

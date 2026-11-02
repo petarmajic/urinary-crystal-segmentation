@@ -21,7 +21,7 @@ The poster and video provide a short introduction. The notebook and report provi
 
 This is the embedded image from **report Figure 6.3, PDF page 23**. The poster also includes the same collage. It shows model-predicted instances, class labels and confidence scores across several validation images. Dense scenes, different appearances and crowded labels are visible.
 
-The README displays the full original collage. A [top-row excerpt](../assets/prediction-overview.jpg) is also available for closer inspection.
+The README shows a separate paired microscopy/annotation figure drawn from the source image and expert polygons. This original prediction collage remains available here and in the report. A [top-row excerpt](../assets/prediction-overview.jpg) is also available for closer inspection.
 
 The collage is a qualitative example. It has no paired ground-truth panel and its exact model/fold/checkpoint is not identified by the figure. It should therefore be interpreted separately from the main five-fold metric plot. The original masks, labels and confidence values are preserved in the report and poster.
 
