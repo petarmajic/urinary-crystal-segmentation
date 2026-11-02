@@ -33,9 +33,7 @@ The video is a **recorded poster presentation**, with the speaker visible in a s
 
 ## Defence: the technical sequence
 
-[![Defence presentation preview](../assets/defence-preview.jpg)](presentations/project-defence.pptx)
-
-[Open the full defence presentation](presentations/project-defence.pptx)
+[Open the full defence presentation · 20 slides](presentations/project-defence.pptx)
 
 | Slides | Focus | Best companion |
 | --- | --- | --- |
@@ -45,29 +43,43 @@ The video is a **recorded poster presentation**, with the speaker visible in a s
 | 12–15 | Label availability, filtering, class support and folds | [Dataset stages](data.md#preparation-stages) |
 | 16–20 | Training calls, confusion matrices and experiment summaries | [Experiment protocols](experiments.md) |
 
-### Metadata extraction
+### Metadata and annotation evidence
 
-[![Metadata CSV in defence slide 5](../assets/metadata-slide.jpg)](presentations/project-defence.pptx)
+| Structured metadata | Expert polygon annotations |
+| :---: | :---: |
+| [<img src="../assets/metadata-excerpt.png" alt="Metadata CSV excerpt from defence slide 5" width="420">](../assets/metadata-excerpt.png) | [<img src="../assets/annotation-excerpt.png" alt="CVAT polygon excerpt from defence slide 11" width="420">](../assets/annotation-excerpt.png) |
+| [CSV](../metadata/image_metadata.csv) · [Extraction script](../scripts/preprocessing/data_preprocessing_image_metadata.py) | [Annotation format and class mapping](data.md#annotations-and-class-mapping) |
 
-[Defence slide 5](presentations/project-defence.pptx) shows the structured metadata CSV.
+Excerpts from defence slides **5 and 11**, with a consistent frame and scale. Click either image for the larger view. The CSV records the preprocessing output. The CVAT view shows the hospital experts' manual annotations used as training input.
 
-The original slide makes the data-preparation output concrete. The repository also links the actual [CSV](../metadata/image_metadata.csv) and [extraction script](../scripts/preprocessing/data_preprocessing_image_metadata.py), so the screenshot is supported by inspectable artifacts.
+### Fold preparation
 
-### Annotation format
+Defence slide **15** records the earlier **607-image, 19-class stage**:
 
-[![CVAT polygons in defence slide 11](../assets/annotation-slide.jpg)](presentations/project-defence.pptx)
+| Fold | Training images | Validation images |
+| --- | --- | --- |
+| 1 | 489 | 118 |
+| 2 | 483 | 124 |
+| 3 | 487 | 120 |
+| 4 | 481 | 126 |
+| 5 | 488 | 119 |
 
-[Defence slide 11](presentations/project-defence.pptx) shows crystal polygons in CVAT.
+The main README reports the later 583-image, 15-class experiment. Its fold sizes and results are documented in the [dataset guide](data.md#trainvalidation-strategy) and [experiment guide](experiments.md).
 
-This source slide illustrates polygon labels and multiple crystal objects. It describes the expert annotation input to the training pipeline; it does not assign the hospital's manual annotation work to Petar.
+<details>
+<summary>Original defence slides: cover, metadata, annotations and folds</summary>
 
-### Fold construction
+The full slide previews retain the original presentation typography and blue headers. The excerpts and table above provide the focused technical view.
 
-[![Recorded fold sizes in defence slide 15](../assets/folds-slide.jpg)](presentations/project-defence.pptx)
+<p align="center"><a href="presentations/project-defence.pptx"><img src="../assets/defence-preview.jpg" alt="Original defence title slide" width="640"></a></p>
 
-[Defence slide 15](presentations/project-defence.pptx) shows the fold construction output.
+<p align="center"><img src="../assets/metadata-slide.jpg" alt="Original defence slide 5" width="640"></p>
 
-This slide belongs to the **19-class, 607-image stage**. The main README's 15-class experiment has 583 images and different fold sizes. Keeping the stages labelled avoids mixing the two experiments.
+<p align="center"><img src="../assets/annotation-slide.jpg" alt="Original defence slide 11" width="640"></p>
+
+<p align="center"><img src="../assets/folds-slide.jpg" alt="Original defence slide 15" width="640"></p>
+
+</details>
 
 ## Earlier slides and source references
 

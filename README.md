@@ -6,6 +6,12 @@ I prepared a microscopy dataset for instance segmentation and fine-tuned YOLO11 
 
 [Training notebook](notebooks/PRI_train.ipynb) · [Technical report](docs/reports/project-report.pdf) · [Recorded presentation · 2:17](docs/media/project-presentation.mp4)
 
+## Project workflow
+
+![Overview of source images, metadata extraction, expert polygons, two training variants and recorded outputs](assets/workflow.svg)
+
+[Dataset and class distribution](docs/data.md) · [Experiment details](docs/experiments.md) · [Environment and execution notes](docs/reproducibility.md)
+
 ## What I worked on
 
 | Area | Work in this project | Evidence |
@@ -36,12 +42,6 @@ The [original prediction collage](docs/reports/project-report.pdf#page=23) shows
 Mean ± standard deviation across five folds, selecting the epoch with the highest validation mask mAP50–95 within each fold. These are validation results. The earlier 19-class experiment uses a different dataset and result-selection rule. [Full protocol, per-fold values and limitations](docs/experiments.md).
 
 ![Five recorded fold scores for YOLO11m-seg, with their mean and standard deviation](assets/fold-validation.svg)
-
-## Workflow
-
-![Four stages: microscopy data review, preparation of expert polygon annotations, YOLO training and mask evaluation](assets/workflow.svg)
-
-[Dataset and class distribution](docs/data.md) · [Experiment details](docs/experiments.md) · [Environment and execution notes](docs/reproducibility.md)
 
 ## Presentation and poster
 
