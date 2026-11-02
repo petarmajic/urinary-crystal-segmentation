@@ -2,6 +2,8 @@
 
 Urinary crystal images can contain several species, while their filenames and folder labels are inconsistent. I prepared the microscopy data and fine-tuned YOLO11 models to locate and identify individual crystal instances using expert polygon annotations.
 
+*Completed as part of the Research and Innovation Project (PRI) course during my Erasmus exchange at Polytech Tours, Université de Tours.*
+
 **Python · Ultralytics YOLO11 · NumPy · pandas · Pillow · Google Colab**
 
 [Training notebook](notebooks/PRI_train.ipynb) · [Technical report](docs/reports/project-report.pdf) · [Recorded presentation · 2:17](docs/media/project-presentation.mp4)
@@ -62,4 +64,4 @@ The poster, recorded presentation and defence slides explain the dataset difficu
 
 [Defence slides · 20 slides](docs/presentations/project-defence.pptx) · [All materials and reading guide](docs/media-guide.md)
 
-Research and Innovation Project (PRI), completed during my Erasmus exchange at **Polytech Tours, Université de Tours**, in collaboration with **CHU Orléans**. Medical engineers at the hospital provided the manual annotations. [Project context and contributions](docs/project.md).
+The project involved **CHU Orléans**, whose medical engineers provided the manual annotations. [Project context and contributions](docs/project.md).
