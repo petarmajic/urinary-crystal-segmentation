@@ -47,4 +47,4 @@ From the repository root, with Matplotlib, NumPy and Pillow installed:
 python scripts/documentation/research_figures.py
 ```
 
-The script extracts the saved module table and renders five SVG figures from the notebook outputs, CSV tables and existing image/polygon files. It runs no training or inference. [Figure sources](../assets/README.md).
+The script extracts the saved module table and renders four SVG figures from the notebook outputs, CSV tables and existing image/polygon files. It runs no training or inference. [Figure sources](../assets/README.md).

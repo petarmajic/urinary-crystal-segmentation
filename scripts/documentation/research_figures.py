@@ -147,27 +147,6 @@ def fold_chart():
     ax.legend(frameon=False,loc='lower right',fontsize=11)
     save(fig,'fold-validation')
 
-def result_summary():
-    with (ROOT/'results/recorded-fold-metrics.csv').open() as f:
-        rows=[r for r in csv.DictReader(f) if r['experiment']=='yolo11m_drop4_15_classes']
-    vals=np.array([float(r['mask_map50_95']) for r in rows])
-    assert len(vals)==5 and abs(vals.mean()-.4874)<.0001
-    with (ROOT/'metadata/derived/drop4-class-support.csv').open() as f:
-        classes=list(csv.DictReader(f))
-    assert len(classes)==15
-    fig,ax=plt.subplots(figsize=(11,1.25))
-    fig.subplots_adjust(left=0,right=1,bottom=0,top=1)
-    ax.set(xlim=(0,1100),ylim=(125,0));ax.axis('off')
-    ax.plot([24,1076],[12,12],color=RULE,lw=.8)
-    ax.plot([24,1076],[115,115],color=RULE,lw=.8)
-    for x in [466,678,880]:ax.plot([x,x],[32,96],color=RULE,lw=.7)
-    t(ax,239,52,f'{vals.mean():.3f} ± {vals.std(ddof=1):.3f}',28,color=TEAL,weight='bold')
-    t(ax,239,88,'Validation mask mAP50–95 · mean ± SD',13,color=MUTED)
-    for x,value,label in [(572,'583','Images'),(779,str(len(classes)),'Classes'),(978,str(len(rows)),'Validation folds')]:
-        t(ax,x,52,value,28,weight='bold')
-        t(ax,x,88,label,13,color=MUTED)
-    save(fig,'results-overview')
-
 def support_chart():
     with (ROOT/'metadata/derived/drop4-class-support.csv').open() as f:rows=list(csv.DictReader(f))
     rows.sort(key=lambda r:int(r['images']),reverse=True)
@@ -203,5 +182,5 @@ def annotation_example():
     save(fig,'annotation-example')
 
 if __name__=='__main__':
-    model_evidence();method();fold_chart();result_summary();support_chart();annotation_example()
-    print('Extracted model summary; generated five research figures from saved evidence.')
+    model_evidence();method();fold_chart();support_chart();annotation_example()
+    print('Extracted model summary; generated four research figures from saved evidence.')

@@ -2,25 +2,19 @@
 
 **Instance segmentation of urinary crystals in microscopy images**, where several species can appear in the same field of view. I prepared the images and expert polygon labels, harmonised the class vocabulary, and fine-tuned pretrained YOLO11 segmentation models with five-fold validation.
 
-![Main YOLO11m-seg experiment: validation mask mAP50–95 of 0.487 plus or minus 0.045 across five folds, using 583 images and 15 classes.](assets/results-overview.svg)
-
-*YOLO11m-seg, 1024 px. Mean ± sample SD of each fold's best validation epoch. [Experiment details](docs/experiments.md).*
-
 **Python · Ultralytics YOLO11 · NumPy · pandas · Pillow · multilabel stratification**
 
-[Training notebook](notebooks/PRI_train.ipynb) · [Architecture](docs/architecture.md) · [Data](docs/data.md) · [Technical report](docs/reports/project-report.pdf)
+[Training notebook](notebooks/PRI_train.ipynb) · [Technical report](docs/reports/project-report.pdf)
 
 ## Method and architecture
 
 ![Research diagram showing annotation preparation, the 583-image dataset, five-fold validation and the multiscale YOLO11m-seg mask-prediction architecture.](assets/workflow.svg)
 
-**Figure 1.** The **15-class YOLO11m-seg experiment**: image–polygon pairs, multilabel-stratified folds, multiscale features and instance-mask prediction. Ultralytics provides the model architecture; volumes and fold cells are schematic.
-
-[Model structure, tensor dimensions and mask reconstruction →](docs/architecture.md)
+**Figure 1.** Data preparation, five-fold validation and the Ultralytics YOLO11m-seg architecture. Tensor volumes and fold cells are schematic. [Architecture details](docs/architecture.md).
 
 ## Segmentation targets
 
-The main experiment retains **15 labels across 583 images**, with **7,371 annotated instances** in the saved counts. Each image can contain several classes and several objects of the same class.
+**15 classes · 583 images · 7,371 annotated instances.** An image can contain several classes and multiple instances of each class.
 
 | IDs 0–4 | IDs 5–9 | IDs 10–14 |
 | --- | --- | --- |
@@ -30,11 +24,11 @@ The main experiment retains **15 labels across 583 images**, with **7,371 annota
 | **C1** · Whewellite | **DHAd** · Dihydroxyadenine | **UrAm** · Anhydrous ammonium urate |
 | **C2** · Weddellite | **NASD** · N&#8209;acetylsulfadiazine | **VAT** · Vaterite |
 
-¹ Original training-label wording retained. [Exact class names, remapped IDs and support counts](docs/data.md#segmentation-classes).
+¹ Original training label. [Class IDs and support counts](docs/data.md#segmentation-classes).
 
 ![One original microscopy field and its seven expert polygon annotations for C2 weddellite.](assets/annotation-example.svg)
 
-**Figure 2.** Seven expert-annotated **C2 (weddellite)** instances in one microscopy field. The contours come directly from the source polygon labels. [Annotation source](docs/data.md#annotation-example) · [Recorded model predictions](docs/media-guide.md#prediction-collage).
+**Figure 2.** Seven **C2 (weddellite)** instances with expert polygon annotations. [Data details](docs/data.md#annotation-example) · [Model predictions](docs/media-guide.md#prediction-collage).
 
 ## What I worked on
 
@@ -53,16 +47,25 @@ The main experiment retains **15 labels across 583 images**, with **7,371 annota
 
 ![Five recorded fold mask mAP50–95 values with their mean and one sample standard deviation.](assets/fold-validation.svg)
 
-**Figure 3.** Mean ± sample standard deviation across five folds, selecting each fold's highest validation mask mAP50–95 epoch. These are validation results. The earlier 19-class run has a different dataset and result-selection rule. [Selected epochs, per-fold values and interpretation →](docs/experiments.md)
+**Figure 3.** Mean ± sample SD across five folds, selecting each fold's best validation mask mAP50–95 epoch. [Experiment details](docs/experiments.md).
 
-## Code and project materials
+## Repository guide
 
-| Resource | Contents |
+| Location | Contents |
 | --- | --- |
-| [Notebook](notebooks/PRI_train.ipynb) · [Preprocessing scripts](scripts/preprocessing/) | Image/label preparation, metadata, class processing, training and saved outputs. |
-| [Data](docs/data.md) · [Architecture](docs/architecture.md) | Dataset stages, the 15 retained labels, feature scales and the mask head. |
-| [Experiments](docs/experiments.md) · [Execution notes](docs/reproducibility.md) | Run settings, fold metrics, historical paths and preparation for a new run. |
-| [Report](docs/reports/project-report.pdf) · [Poster](docs/reports/project-poster.pdf) | Original methodology, discussion and visual evidence. |
-| [Recorded presentation · 2:17](docs/media/project-presentation.mp4) · [Defence slides](docs/presentations/project-defence.pptx) | Project explanation and presentation materials. [Material guide](docs/media-guide.md). |
+| [notebooks/](notebooks/) | Training code and saved outputs. |
+| [scripts/](scripts/) | Preprocessing and training helpers. |
+| [data/](data/) | Microscopy images and polygon labels. |
+| [metadata/](metadata/) | Image metadata and class mappings. |
+| [results/](results/) | Fold metrics and model summary. |
+| [docs/](docs/) | Methodology, experiments and reports. |
 
-*Research and Innovation Project (PRI), completed during my Erasmus exchange at Polytech Tours, Université de Tours. CHU Orléans medical engineers provided the manual annotations. [Project context](docs/project.md).*
+## Poster and presentation
+
+| Recorded presentation · 2:17 | Project poster |
+| :---: | :---: |
+| [<img src="assets/video-preview.jpg" alt="Recorded project presentation" height="200">](docs/media/project-presentation.mp4) | [<img src="assets/poster-preview.jpg" alt="Project poster" height="200">](docs/reports/project-poster.pdf) |
+
+[Defence slides](docs/presentations/project-defence.pptx)
+
+*Completed for the Research and Innovation Project (PRI) during my Erasmus exchange at Polytech Tours, Université de Tours. Expert annotations provided by CHU Orléans medical engineers.*

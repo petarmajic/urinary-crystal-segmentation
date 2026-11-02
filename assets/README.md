@@ -4,7 +4,6 @@ All generated figures use the saved experiment evidence. Source cell numbers bel
 
 | Figure | Data or source |
 | --- | --- |
-| `results-overview.svg` | YOLO11m-seg fold scores from notebook cell 38; mean and sample SD rounded to three decimal places. Dataset size: cell 33; class count: cell 35. |
 | `fold-validation.svg` | Five mask mAP50–95 values from cell 38, with their mean and sample SD. |
 | `class-support.svg` | Image and annotated-instance counts from cell 35. |
 | `workflow.svg` | Preparation code and saved YOLO11m-seg module summary, cell 37; architecture mechanics checked against Ultralytics 8.4.14. Volumes and fold cells are schematic. |
