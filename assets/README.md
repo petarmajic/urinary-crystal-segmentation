@@ -17,6 +17,7 @@ Source notebook Git blob: `f5aab47db35e68bb1b32476462df486b4ef3847c`. Source rep
 | Asset | Original source |
 | --- | --- |
 | `validation-predictions.jpg` | JPEG extracted unchanged from report Figure 6.3, PDF page 23 |
+| `prediction-overview.jpg` | Top row of that collage, crop rectangle (0, 0, 1920, 440); no masks, class labels or scores redrawn |
 | `reported-confusion-matrices.png` | PNG extracted unchanged from report Figure 6.2, PDF page 22 |
 | `poster-preview.jpg` | Rendered poster PDF page 1, resized |
 | `video-preview.jpg` | Original video frame near 12.5 seconds, resized |
