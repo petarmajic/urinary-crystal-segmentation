@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="572.4pt" height="225.072pt" viewBox="0 0 572.4 225.072" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T14:00:13.024483</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 225.072 
+L 572.4 225.072 
+L 572.4 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 20.034 104.22 
+L 264.996 104.22 
+Q 269.46 104.22 269.46 99.7848 
+L 269.46 28.2672 
+Q 269.46 23.832 264.996 23.832 
+L 20.034 23.832 
+Q 15.57 23.832 15.57 28.2672 
+L 15.57 99.7848 
+Q 15.57 104.22 20.034 104.22 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #f5f8fa; stroke: #c8d5de; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 304.614 104.22 
+L 549.576 104.22 
+Q 554.04 104.22 554.04 99.7848 
+L 554.04 28.2672 
+Q 554.04 23.832 549.576 23.832 
+L 304.614 23.832 
+Q 300.15 23.832 300.15 28.2672 
+L 300.15 99.7848 
+Q 300.15 104.22 304.614 104.22 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #f5f8fa; stroke: #c8d5de; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 20.034 206.784 
+L 264.996 206.784 
+Q 269.46 206.784 269.46 202.3488 
+L 269.46 130.8312 
+Q 269.46 126.396 264.996 126.396 
+L 20.034 126.396 
+Q 15.57 126.396 15.57 130.8312 
+L 15.57 202.3488 
+Q 15.57 206.784 20.034 206.784 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #f5f8fa; stroke: #c8d5de; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 304.614 206.784 
+L 549.576 206.784 
+Q 554.04 206.784 554.04 202.3488 
+L 554.04 130.8312 
+Q 554.04 126.396 549.576 126.396 
+L 304.614 126.396 
+Q 300.15 126.396 300.15 130.8312 
+L 300.15 202.3488 
+Q 300.15 206.784 304.614 206.784 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #f5f8fa; stroke: #c8d5de; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 272.573684 64.3032 
+Q 283.966857 64.3032 293.906586 64.3032 
+" clip-path="url(#pf60ddc19b0)" style="fill: none; stroke: #536575; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 287.906586 61.3032 
+L 293.906586 64.3032 
+L 287.906586 67.3032 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #536575; stroke: #536575; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 272.573684 166.8672 
+Q 283.966857 166.8672 293.906586 166.8672 
+" clip-path="url(#pf60ddc19b0)" style="fill: none; stroke: #536575; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 287.906586 163.8672 
+L 293.906586 166.8672 
+L 287.906586 169.8672 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #536575; stroke: #536575; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 425.7 106.992 
+L 425.7 116.4168 
+L 143.91 116.4168 
+L 143.91 125.054359 
+" clip-path="url(#pf60ddc19b0)" style="fill: none; stroke: #536575; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 146.71 119.454359 
+L 143.91 125.054359 
+L 141.11 119.454359 
+z
+" clip-path="url(#pf60ddc19b0)" style="fill: #536575; stroke: #536575; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #287c70" x="28.404" y="43.7904" transform="rotate(-0 28.404 43.7904)">01  Data review</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #19364a" x="28.404" y="65.412" transform="rotate(-0 28.404 65.412)">659 microscopy images</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536575" x="28.404" y="87.588" transform="rotate(-0 28.404 87.588)">Filename variants, mixtures, metadata</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #287c70" x="312.984" y="43.7904" transform="rotate(-0 312.984 43.7904)">02  Annotation preparation</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #19364a" x="312.984" y="65.412" transform="rotate(-0 312.984 65.412)">Expert CVAT polygon labels</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536575" x="312.984" y="87.588" transform="rotate(-0 312.984 87.588)">Merge aliases and filter sparse classes</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #287c70" x="28.404" y="146.3544" transform="rotate(-0 28.404 146.3544)">03  Model training</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #19364a" x="28.404" y="167.976" transform="rotate(-0 28.404 167.976)">YOLO11n-seg / YOLO11m-seg</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536575" x="28.404" y="190.152" transform="rotate(-0 28.404 190.152)">Five multilabel-stratified folds</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #287c70" x="312.984" y="146.3544" transform="rotate(-0 312.984 146.3544)">04  Evaluation</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #19364a" x="312.984" y="167.976" transform="rotate(-0 312.984 167.976)">Mask precision, recall and mAP</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536575" x="312.984" y="190.152" transform="rotate(-0 312.984 190.152)">Fold summaries and visual inspection</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf60ddc19b0">
+   <rect x="7.2" y="7.2" width="558" height="210.672"/>
+  </clipPath>
+ </defs>
+</svg>

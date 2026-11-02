@@ -1,0 +1,16 @@
+class_id,class_name,images,instances
+0,AMO_amoxicilline_trihydratée,32,1357
+1,AU2_acide_urique_dihydraté,102,907
+2,Br_brushite,62,955
+3,C1_whewellite,70,461
+4,C2_weddellite,135,485
+5,C3_caoxite,25,29
+6,CAL_calcite,23,980
+7,CYS_cystine,97,644
+8,DHAd_dihydroxyadénine,36,580
+9,NASD_N-acétylsulfadiazine,15,80
+10,NASM_N-acétylsulfaméthoxazole_chlorhydrate,6,141
+11,PACC_Plaque_vitreuse,16,43
+12,PAM_struvite,49,359
+13,UrAm_urate_ammonium_anhydre,8,268
+14,VAT_vatérite,15,82
