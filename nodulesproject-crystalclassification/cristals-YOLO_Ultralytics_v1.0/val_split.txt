@@ -1,0 +1,123 @@
+images/train/cristaux_01/Database/whewellite/C1.tif
+images/train/cristaux_01/Database/struvite/PAM_trapezes_pol.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/P4182091 (+ brushite).jpg
+images/train/cristaux_01/Database/calcite/CALCdet.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2hexag2bis.jpg
+images/train/cristaux_01/Database/struvite + urate NH4/CU10307-1.jpg
+images/train/cristaux_01/Database/cystine/Cys_pol_pH62_C12012.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2agrcorr2.jpg
+images/train/cristaux_01/Database/amoxicilline/P4102049.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAD.bmp
+images/train/cristaux_01/Database/cystine/(+PACC).jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_P4100314_corr.jpg
+images/train/cristaux_01/Database/weddellite octaedrique/P8140878.jpg
+images/train/cristaux_01/Database/weddellite octaedrique/P1190044 (+ whewellite).jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_PA060450det.jpg
+images/train/cristaux_01/Database/cystine/P8130873 (+PACC).jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_PA060454.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd (+Acide Urique amorphe).jpg
+images/train/cristaux_01/Database/acide urique dihydraté/PB221306.jpg
+images/train/cristaux_01/Database/caoxite/P2181799 (+ weddellite).jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/P4292120 (+ PACC).jpg
+images/train/cristaux_01/Database/brushite/Br_oursin.jpg
+images/train/cristaux_01/Database/amoxicilline/amoxicilline10.jpg
+images/train/cristaux_01/Database/whewellite/C1_P2052577_corr.jpg
+images/train/cristaux_01/Database/N-acetylsulfadiazine-sulfadiazine/PC131458.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_cuiller_pol_pH50.jpg
+images/train/cristaux_01/Database/brushite/Br_poinçon_lb.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/P1140041 (+ weddellite).jpg
+images/train/cristaux_01/Database/caoxite/C3 (=caoxite)_23918HOP2 (+ weddellite=C2).jpg
+images/train/cristaux_01/Database/PACC/PACC (plaque vitreuse) + cystine.jpg
+images/train/cristaux_01/Database/struvite + urate NH4/CU10307-4.jpg
+images/train/cristaux_01/Database/cystine/Cys_macles_agr_pol.jpg
+images/train/cristaux_01/Database/cystine/Cystine en queue de comete_C19003_8.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/P1220891.jpg
+images/train/cristaux_01/Database/cystine/Cys_CU12012_pH62_lb.jpg
+images/train/cristaux_01/Database/brushite/Br_agr_pol4corr.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2maclumpol6corr.jpg
+images/train/cristaux_01/Database/PACC/PACC plaques vitreuses (+cystine)PB132327.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/191210355502.tif
+images/train/cristaux_01/Database/cholesterol/chol_lb.jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/C2hexag_pol_Ca7mM.jpg
+images/train/cristaux_01/Database/cholesterol/cholestbil2.jpg
+images/train/cristaux_01/Database/whewellite/PB221298.jpg
+images/train/cristaux_01/Database/cystine/PC201482 (+PACC).jpg
+images/train/cristaux_01/Database/PACC/PACC (cylindre)_PC190559.jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/C2_facies5_lb_C3734.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd_C2_AUam_lb.jpg
+images/train/cristaux_01/Database/cystine/PC241513 (+PACC).jpg
+images/train/cristaux_01/Database/whewellite/C1_HOP_CU4599_1.tif
+images/train/cristaux_01/Database/weddellite dodecaedrique/C2hexag_pol_det2corr.jpg
+images/train/cristaux_01/Database/N-acetylsulfamethoxazole/NASMepais_lb.jpg
+images/train/cristaux_01/Database/cystine/PB261333 (+weddellite).jpg
+images/train/cristaux_01/Database/struvite/PAM+PACCplaqvitr_pol.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/P3271982 (+ weddellite).jpg
+images/train/cristaux_01/Database/brushite/Br (+hématies)_P2020922.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/P7222314.jpg
+images/train/cristaux_01/Database/brushite/Br_P2250245.jpg
+images/train/cristaux_01/Database/whewellite/P9050951 (+ weddellite).jpg
+images/train/cristaux_01/Database/cystine/crisCYSagrpolbis.jpg
+images/train/cristaux_01/Database/cholesterol/Cholesterol_hydrocele.jpg
+images/train/cristaux_01/Database/struvite/PAM_croix_PACCpol8_pH91.jpg
+images/train/cristaux_01/Database/struvite/P8060838.jpg
+images/train/cristaux_01/Database/brushite/Br_pol2.jpg
+images/train/cristaux_01/Database/struvite/P4162074.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/PA060454.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd_3.tif
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd_AUam_lb.jpg
+images/train/cristaux_01/Database/amoxicilline/PA181133.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd+C2_P5181377.jpg
+images/train/cristaux_01/Database/whewellite/P1301722 (+ hématies+cellules).jpg
+images/train/cristaux_01/Database/cystine/CYS_macle_C12012_pH62_pol3.jpg
+images/train/cristaux_01/Database/cystine/P4100295.jpg
+images/train/cristaux_01/Database/whewellite/P9090972.jpg
+images/train/cristaux_01/Database/whewellite/P6052174.jpg
+images/train/cristaux_01/Database/weddellite octaedrique/P9262545.jpg
+images/train/cristaux_01/Database/struvite/PB261356 (+Urate NH4).jpg
+images/train/cristaux_01/Database/cystine/P4152072 (+ hématies).jpg
+images/train/cristaux_01/Database/caoxite/P9050949 (+ weddellite).jpg
+images/train/cristaux_01/Database/whewellite/P7240801.jpg
+images/train/cristaux_01/Database/struvite/PB261354 (+Urate NH4).jpg
+images/train/cristaux_01/Database/amoxicilline/AMO_PA181143.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/PC132400.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_baguettes_pol.jpg
+images/train/cristaux_01/Database/whewellite/whewellite (+weddellite dodécaédrique).jpg
+images/train/cristaux_01/Database/cystine/PC241511 (+weddellite + PACC).jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/P4112064.jpg
+images/train/cristaux_01/Database/struvite/Struvite.jpg
+images/train/cristaux_01/Database/amoxicilline/PA181134.jpg
+images/train/cristaux_01/Database/struvite/PAM_CU5076.jpg
+images/train/cristaux_01/Database/N-acetylsulfadiazine-sulfadiazine/PC131455.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd_agr_lb.jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/P8120870 (Wd+PACC).jpg
+images/train/cristaux_01/Database/cholesterol/cholest_pol12_nez.jpg
+images/train/cristaux_01/Database/brushite/Br+C2+Cys+PACC_PC241486_corr2.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/DHAd+C2_C20391_lb.jpg
+images/train/cristaux_01/Database/weddellite dodecaedrique/P4112067.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/P7222312.jpg
+images/train/cristaux_01/Database/brushite/brushite+PACC.jpg
+images/train/cristaux_01/Database/calcite/CALC_cacahuetes_lb2.jpg
+images/train/cristaux_01/Database/cystine/P8130875 (+PACC).jpg
+images/train/cristaux_01/Database/acide urique dihydraté/au2_batonnets_irisé_720.jpg
+images/train/cristaux_01/Database/N-acetylsulfamethoxazole/NASM_lbcorr.jpg
+images/train/cristaux_01/Database/vatérite/Vatérite_fleur_pH75lb_9bis.jpg
+images/train/cristaux_01/Database/dihydroxyadénine/P1220890.jpg
+images/train/cristaux_01/Database/weddellite octaedrique/C2_agreg_lb.jpg
+images/train/cristaux_01/Database/caoxite/PA291233.jpg
+images/train/cristaux_01/Database/whewellite/P9130974.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_6is_2.jpg
+images/train/cristaux_01/Database/cystine/PC241518 (+weddellite + brushite + PACC).jpg
+images/train/cristaux_01/Database/N-acetylsulfamethoxazole/NASM_pol_C4228.jpg
+images/train/cristaux_01/Database/N-acetylsulfadiazine-sulfadiazine/NASD_P5140034_corr.jpg
+images/train/cristaux_01/Database/whewellite/C1 dans un cylindre_3.tif
+images/train/cristaux_01/Database/whewellite/P7240799.jpg
+images/train/cristaux_01/Database/vatérite/Calcit_Vatérite_fleur_pH75pol_10.jpg
+images/train/cristaux_01/Database/N-acetylsulfadiazine-sulfadiazine/NASD-pH66_0003.tif
+images/train/cristaux_01/Database/caoxite/C3_23918HOP1.jpg
+images/train/cristaux_01/Database/amoxicilline/P4102042.jpg
+images/train/cristaux_01/Database/brushite/P2240848 (+ cellules).jpg
+images/train/cristaux_01/Database/cystine/P2132625.jpg
+images/train/cristaux_01/Database/cystine/Cys_P3040256.jpg
+images/train/cristaux_01/Database/cystine/Cystine_C19003_2.jpg
+images/train/cristaux_01/Database/whewellite/PC132397.jpg
+images/train/cristaux_01/Database/amoxicilline/AMO_P2100933.jpg

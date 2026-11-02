@@ -1,0 +1,46 @@
+images/train/cristaux_01/Database/calcite/Calcite_pol2.jpg
+images/train/cristaux_01/Database/calcite/Calcite_pol1.jpg
+images/train/cristaux_01/Database/calcite/CALC_cacahuetes_pol.jpg
+images/train/cristaux_01/Database/N-acetylsulfadiazine-sulfadiazine/Sulfadiazine (+NASD)_pH66_1.jpg
+images/train/cristaux_01/Database/atazanavir/ATZ_CU21132_3.tif
+images/train/cristaux_01/Database/weddellite octaedrique/PC120537.jpg
+images/train/cristaux_01/Database/artefact/P5092126.jpg
+images/train/cristaux_01/Database/artefact/PC040006.jpg
+images/train/cristaux_01/Database/artefact/P9190980.jpg
+images/train/cristaux_01/Database/artefact/P9190978.jpg
+images/train/cristaux_01/Database/artefact/P9190979.jpg
+images/train/cristaux_01/Database/artefact/P1210049.jpg
+images/train/cristaux_01/Database/cystine/crisCYSmaclebis.jpg
+images/train/cristaux_01/Database/PACC/P2122621.jpg
+images/train/cristaux_01/Database/PACC/PACC.jpg
+images/train/cristaux_01/Database/PACC/P9050958.jpg
+images/train/cristaux_01/Database/PACC/PACC_lbcorr.jpg
+images/train/cristaux_01/Database/PACC/PACC-23955-3.jpg
+images/train/cristaux_01/Database/PACC/PACC_granulations_pol.jpg
+images/train/cristaux_01/Database/urate NH4/PB261358.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-29.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-15.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-17.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-13.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-26.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-27.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-30-10ans4C.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-19.jpg
+images/train/cristaux_01/Database/urate NH4/CU10307-24.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUampolaris4_pH5_9.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUampol.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUam_pH5_9.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUam_lb3.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUamlumblanch2.bmp
+images/train/cristaux_01/Database/acide urique amorphe/AUam_spher_lb.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUampolaris3_pH5_9.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUam_pH6_1_AU7_3.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUam_pH5_9polnoirbis.jpg
+images/train/cristaux_01/Database/acide urique amorphe/AUamlumblanch3.jpg
+images/train/cristaux_01/Database/indinavir monohydraté/CRX_CU10567.tif
+images/train/cristaux_01/Database/indinavir monohydraté/CRX_CU10567_2.tif
+images/train/cristaux_01/Database/indinavir monohydraté/CRX_CU9415_2.tif
+images/train/cristaux_01/Database/indinavir monohydraté/CRX_CU8937_2.tif
+images/train/cristaux_01/Database/indinavir monohydraté/CRX_CU8937.tif
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_batonnets_pol.jpg
+images/train/cristaux_01/Database/acide urique dihydraté/AU2_bb_hexag_pol.jpg

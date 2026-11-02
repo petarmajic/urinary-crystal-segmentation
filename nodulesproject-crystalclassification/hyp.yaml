@@ -1,0 +1,32 @@
+# Hyperparameters for Crystal Classification (Microscopic Images)
+# Optimized for rotation-invariant, scale-invariant objects with potential lighting variations.
+
+# Augmentation settings
+degrees: 180.0 # Image rotation (+/- deg). Crystals can be oriented in any direction.
+translate: 0.1 # Image translation (+/- fraction).
+scale: 0.5 # Image scale (+/- gain). Crystals vary significantly in size.
+shear: 0.0 # Image shear (+/- deg). Keep 0 to preserve shape geometry.
+perspective: 0.0 # Image perspective (+/- fraction), range 0-0.001. Microscopic view is flat.
+flipud: 0.5 # Image flip up-down (probability). Vertical orientation doesn't matter.
+fliplr: 0.5 # Image flip left-right (probability). Horizontal orientation doesn't matter.
+mosaic: 1.0 # Image mosaic (probability). Helps with small object detection.
+mixup: 0.1 # Image mixup (probability). Helps generalization.
+copy_paste: 0.3 # Segment copy-paste (probability). Useful for segmentation.
+
+# Color augmentations (be careful if color is diagnostic)
+hsv_h: 0.015 # Image HSV-Hue augmentation (fraction). Keep low to preserve color identity.
+hsv_s: 0.7 # Image HSV-Saturation augmentation (fraction).
+hsv_v: 0.4 # Image HSV-Value augmentation (fraction). Lighting conditions vary.
+
+# Training settings (standard defaults, adjusted if needed)
+optimizer: auto # optimizer to use, choices=['SGD', 'Adam', 'Adamax', 'AdamW', 'NAdam', 'RAdam', 'RMSProp']
+lr0: 0.01 # initial learning rate (i.e. SGD=1E-2, Adam=1E-3)
+lrf: 0.01 # final learning rate (lr0 * lrf)
+momentum: 0.937 # SGD momentum/Adam beta1
+weight_decay: 0.0005 # optimizer weight decay 5e-4
+warmup_epochs: 3.0 # warmup epochs (fractions ok)
+warmup_momentum: 0.8 # warmup initial momentum
+warmup_bias_lr: 0.1 # warmup initial bias lr
+box: 7.5 # box loss gain
+cls: 0.5 # cls loss gain (scale with pixels)
+dfl: 1.5 # dfl loss gain

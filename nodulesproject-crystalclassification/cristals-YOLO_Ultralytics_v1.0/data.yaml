@@ -1,0 +1,46 @@
+names:
+  0: brushite
+  1: calcite
+  2: caoxite
+  3: cystine
+  4: "dihydroxyad\xE9nine"
+  5: ACV_aciclovir
+  6: "AMO_amoxicilline_trihydrat\xE9e"
+  7: "AMP_ampicilline_trihydrat\xE9e"
+  8: ATZ_atazanavir
+  9: AU0_acide_urique_anhydre
+  10: "AU1_acide_urique_monohydrat\xE9"
+  11: "AU2_acide_urique_dihydrat\xE9"
+  12: AUam_acide_urique_amorphe
+  13: Br_brushite
+  14: C1_whewellite
+  15: C2_weddellite
+  16: C3_caoxite
+  17: CAL_calcite
+  18: CEF_ceftriaxonate_de_calcium
+  19: "CHOL_cholest\xE9rol"
+  20: "CIP_ciprofloxacine_sel_de_magn\xE9sium"
+  21: "CRX_Crixivan_indinavir_monohydrat\xE9"
+  22: CYS_cystine
+  23: "DHAd_dihydroxyad\xE9nine"
+  24: LEU_leucine
+  25: "MES_m\xE9salazine"
+  26: "NASD_N-ac\xE9tylsulfadiazine"
+  27: "NASM_N-ac\xE9tylsulfam\xE9thoxazole_chlorhydrate"
+  28: "OCP_phosphate_octocalcique_pentahydrat\xE9"
+  29: "PACC_phosphate_amorphe_de_calcium_carbonat\xE9"
+  30: PAM_struvite
+  31: SD_sulfadiazine
+  32: TYR_tyrosine
+  33: UrAm_urate_ammonium_anhydre
+  34: "UrNa_urate_sodium_monohydrat\xE9"
+  35: UrNK_urate_double_sodium_potassium
+  36: "VAT_vat\xE9rite"
+  37: XAN_xanthine
+  38: PACC_Cylindre
+  39: Cylindre
+  40: PACC_Plaque_vitreuse
+path: .
+train: train_split.txt
+val: val_split.txt
+test: test_split.txt
