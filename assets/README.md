@@ -22,9 +22,9 @@ Source notebook Git blob: `f5aab47db35e68bb1b32476462df486b4ef3847c`. Source rep
 | `poster-preview.jpg` | Rendered poster PDF page 1, resized |
 | `video-preview.jpg` | Original video frame near 12.5 seconds, resized |
 | `defence-preview.jpg` | Rendered defence slide 1, resized |
-| `metadata-slide.jpg` | Rendered defence slide 5, retained inside the expandable original-slide section |
-| `annotation-slide.jpg` | Rendered defence slide 11, retained inside the expandable original-slide section |
-| `folds-slide.jpg` | Rendered defence slide 15, retained inside the expandable original-slide section |
+| `metadata-slide.jpg` | Rendered defence slide 5, linked from the original-slide reference section |
+| `annotation-slide.jpg` | Rendered defence slide 11, linked from the original-slide reference section |
+| `folds-slide.jpg` | Rendered defence slide 15, linked from the original-slide reference section |
 | `metadata-excerpt.png` | Source image embedded in defence slide 5, with the bottom portal bar cropped and a neutral frame added |
 | `annotation-excerpt.png` | Source image embedded in defence slide 11, fitted to the same frame without changing the annotation content |
 

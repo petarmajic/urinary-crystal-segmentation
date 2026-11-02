@@ -21,7 +21,7 @@ The poster and video provide a short introduction. The notebook and report provi
 
 This is the embedded image from **report Figure 6.3, PDF page 23**. The poster also includes the same collage. It shows model-predicted instances, class labels and confidence scores across several validation images. Dense scenes, different appearances and crowded labels are visible.
 
-The README shows the [top row of the original collage](../assets/prediction-overview.jpg) as a compact overview; the full image above retains all examples.
+The README displays the full original collage. A [top-row excerpt](../assets/prediction-overview.jpg) is also available for closer inspection.
 
 The collage is a qualitative example. It has no paired ground-truth panel and its exact model/fold/checkpoint is not identified by the figure. It should therefore be interpreted separately from the main five-fold metric plot. The original masks, labels and confidence values are preserved in the report and poster.
 
@@ -68,20 +68,14 @@ Defence slide **15** records the earlier **607-image, 19-class stage**:
 
 The main README reports the later 583-image, 15-class experiment. Its fold sizes and results are documented in the [dataset guide](data.md#trainvalidation-strategy) and [experiment guide](experiments.md).
 
-<details>
-<summary>Original defence slides: cover, metadata, annotations and folds</summary>
+### Original defence slides
 
-The full slide previews retain the original presentation typography and blue headers. The excerpts and table above provide the focused technical view.
+[Full presentation · 20 slides](presentations/project-defence.pptx)
 
-<p align="center"><a href="presentations/project-defence.pptx"><img src="../assets/defence-preview.jpg" alt="Original defence title slide" width="640"></a></p>
+Individual source previews: [cover](../assets/defence-preview.jpg) · [metadata, slide 5](../assets/metadata-slide.jpg) · [annotations, slide 11](../assets/annotation-slide.jpg) · [fold preparation, slide 15](../assets/folds-slide.jpg).
 
-<p align="center"><img src="../assets/metadata-slide.jpg" alt="Original defence slide 5" width="640"></p>
+The original previews retain the presentation's typography and blue headers. The framed excerpts and native table above provide the focused technical view.
 
-<p align="center"><img src="../assets/annotation-slide.jpg" alt="Original defence slide 11" width="640"></p>
-
-<p align="center"><img src="../assets/folds-slide.jpg" alt="Original defence slide 15" width="640"></p>
-
-</details>
 
 ## Earlier slides and source references
 

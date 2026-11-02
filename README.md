@@ -1,31 +1,16 @@
 # Urinary crystal instance segmentation
 
-I prepared microscopy images for instance segmentation and fine-tuned YOLO11 models to locate and identify individual urinary crystals. The work covers inconsistent filenames, mixed crystal species, expert polygon annotations and an imbalanced training dataset.
+Urinary crystal images can contain several species, while their filenames and folder labels are inconsistent. I prepared the microscopy data and fine-tuned YOLO11 models to locate and identify individual crystal instances using expert polygon annotations.
 
 **Python · Ultralytics YOLO11 · NumPy · pandas · Pillow · Google Colab**
 
 [Training notebook](notebooks/PRI_train.ipynb) · [Technical report](docs/reports/project-report.pdf) · [Recorded presentation · 2:17](docs/media/project-presentation.mp4)
 
-| Dataset review | Evaluated model variant | Five-fold validation |
-| --- | --- | --- |
-| **659 source images** | **583 images · 15 classes** | **0.4874 ± 0.0453 mask mAP50–95** |
+## Project workflow
 
-YOLO11m-seg, mean ± SD across five folds, using each fold's best validation epoch. [Protocol and per-fold results](docs/experiments.md).
+The work connects dataset review, annotation preparation, model training and evaluation. Filename metadata supports the data review, while the images and expert polygons form the training input.
 
-## Segmentation examples
-
-<p align="center"><a href="assets/validation-predictions.jpg"><img src="assets/prediction-overview.jpg" alt="Top row of the original validation collage, showing three microscopy images with predicted masks, class labels and confidence scores" width="900"></a></p>
-
-Three examples from the report's validation collage. The exact generating run is not recorded. [Visual sources and interpretation](docs/media-guide.md#prediction-collage).
-
-<details>
-<summary>View the full original prediction collage</summary>
-
-<p align="center"><a href="assets/validation-predictions.jpg"><img src="assets/validation-predictions.jpg" alt="Full original validation collage, with predicted masks, class labels and confidence scores" width="620"></a></p>
-
-[Figure 6.3 in the report](docs/reports/project-report.pdf#page=23) · [Project poster](docs/reports/project-poster.pdf)
-
-</details>
+![Overview of source images, the metadata branch, preparation of model inputs, two YOLO experiments and recorded outputs](assets/workflow.svg)
 
 ## What I worked on
 
@@ -34,39 +19,46 @@ Three examples from the report's validation collage. The exact generating run is
 - **Deep learning:** fine-tuned pretrained YOLO11n-seg and YOLO11m-seg models at 1024 px, with separate dataset variants and augmentation settings. [Notebook guide](notebooks/README.md)
 - **Evaluation:** built multilabel-stratified folds and analysed mask precision, recall and mAP across five validation folds. [Experiments and results](docs/experiments.md)
 
+The notebook records these steps and their saved outputs. The results below come from the 15-class YOLO11m-seg experiment.
+
 ## Five-fold results
 
-![Five recorded YOLO11m-seg validation scores, with their mean and standard deviation](assets/fold-validation.svg)
+**YOLO11m-seg · 583 images · 15 classes · 1024 px**
 
-The 15-class experiment uses **583 images** and selects the highest validation mask mAP50–95 epoch within each fold. The earlier 19-class experiment uses a different dataset and result-selection rule. [Full protocol and limitations](docs/experiments.md).
-
-<details>
-<summary>All four mask metrics</summary>
-
-| Precision | Recall | mAP50 | mAP50–95 |
+| Mask precision | Mask recall | Mask mAP50 | Mask mAP50–95 |
 | --- | --- | --- | --- |
 | 0.7022 ± 0.0335 | 0.6306 ± 0.0513 | 0.6813 ± 0.0427 | **0.4874 ± 0.0453** |
 
-Mean ± sample standard deviation across five validation folds.
+Mean ± sample standard deviation across five folds, using each fold's highest validation mask mAP50–95 epoch. The earlier 19-class experiment uses a different dataset and result-selection rule. [Full protocol, per-fold values and limitations](docs/experiments.md).
 
-</details>
+![Five recorded YOLO11m-seg validation scores, with their mean and standard deviation](assets/fold-validation.svg)
 
-## Project workflow
+## Example predictions
 
-<details>
-<summary>View data sources, preprocessing, both model variants and outputs</summary>
+The validation collage shows predicted instance masks, class labels and confidence scores across different microscopy images.
 
-![Detailed overview of microscopy data, the metadata branch, annotation preparation, two YOLO experiments and recorded outputs](assets/workflow.svg)
+<p align="center"><a href="assets/validation-predictions.jpg"><img src="assets/validation-predictions.jpg" alt="Original validation collage showing predicted crystal masks, class labels and confidence scores" width="680"></a></p>
 
-</details>
+Original Figure 6.3 from the report. Its exact generating run is not recorded. [Visual sources and interpretation](docs/media-guide.md#prediction-collage).
 
-[Dataset and class distribution](docs/data.md) · [Environment and execution notes](docs/reproducibility.md)
+## Code and documentation
+
+| Start here | What it contains |
+| --- | --- |
+| [Training notebook](notebooks/PRI_train.ipynb) | Dataset preparation, class filtering, fold generation, training and saved outputs |
+| [Preprocessing scripts](scripts/preprocessing/) | Metadata extraction, image/label filtering and the earlier split helpers |
+| [Dataset guide](docs/data.md) | Source data, annotation format, class mappings and distribution |
+| [Experiment guide](docs/experiments.md) | Training settings, per-fold metrics and interpretation of both experiments |
+| [Execution notes](docs/reproducibility.md) | Recorded environment, historical paths and preparation for a new run |
+| [Technical report](docs/reports/project-report.pdf) | Full project methodology and original figures |
 
 ## Presentation and poster
 
+The poster, recorded presentation and defence slides explain the dataset difficulties, the preparation steps and the model experiments.
+
 | Recorded presentation · 2:17 | Original poster · 1 page |
 | :---: | :---: |
-| [<img src="assets/video-preview.jpg" alt="Recorded project presentation" height="180">](docs/media/project-presentation.mp4) | [<img src="assets/poster-preview.jpg" alt="Original project poster" height="180">](docs/reports/project-poster.pdf) |
+| [<img src="assets/video-preview.jpg" alt="Recorded project presentation" height="200">](docs/media/project-presentation.mp4) | [<img src="assets/poster-preview.jpg" alt="Original project poster" height="200">](docs/reports/project-poster.pdf) |
 
 [Defence slides · 20 slides](docs/presentations/project-defence.pptx) · [All materials and reading guide](docs/media-guide.md)
 
