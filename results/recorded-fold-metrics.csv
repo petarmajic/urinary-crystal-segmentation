@@ -1,0 +1,11 @@
+experiment,fold,epoch,mask_precision,mask_recall,mask_map50,mask_map50_95,source_cell_zero_based,selection
+yolo11n_19_classes,fold_116,,0.61371,0.56273,0.57343,0.41634,26,last recorded epoch
+yolo11n_19_classes,fold_2,,0.67119,0.67146,0.66148,0.4697,26,last recorded epoch
+yolo11n_19_classes,fold_3,,0.57843,0.51078,0.54918,0.37283,26,last recorded epoch
+yolo11n_19_classes,fold_4,,0.64063,0.56732,0.5816,0.40381,26,last recorded epoch
+yolo11n_19_classes,fold_5,,0.51591,0.49205,0.50193,0.35498,26,last recorded epoch
+yolo11m_drop4_15_classes,fold_1,74,0.70804,0.7055,0.74196,0.54213,38,best validation mask mAP50-95 epoch
+yolo11m_drop4_15_classes,fold_2,86,0.72261,0.57173,0.63074,0.43539,38,best validation mask mAP50-95 epoch
+yolo11m_drop4_15_classes,fold_3,96,0.70589,0.65048,0.69201,0.50307,38,best validation mask mAP50-95 epoch
+yolo11m_drop4_15_classes,fold_4,86,0.7294,0.62664,0.68972,0.51075,38,best validation mask mAP50-95 epoch
+yolo11m_drop4_15_classes,fold_5,79,0.64486,0.59843,0.65183,0.4458,38,best validation mask mAP50-95 epoch
