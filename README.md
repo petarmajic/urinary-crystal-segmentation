@@ -37,7 +37,16 @@
 - **Model training:** fine-tuned YOLO11n-seg and YOLO11m-seg at 1024 px using distinct prepared datasets and training configurations. [Notebook guide](notebooks/README.md)
 - **Evaluation:** generated multilabel-stratified folds and analysed mask precision, recall and mAP across five validation folds. [Protocol](docs/experiments.md)
 
-## Five-fold validation
+## Experiments
+
+| Model | Dataset | Training |
+| --- | --- | --- |
+| [YOLO11n-seg](docs/experiments.md#earlier-yolo11n-seg-result) | 607 images · 19 classes | 1024 px · up to 50 epochs |
+| [YOLO11m-seg](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) | 583 images · 15 classes | 1024 px · up to 100 epochs |
+
+Both runs use five multilabel-stratified folds. Dataset composition, augmentation and epoch-selection rules differ between the experiments.
+
+### Five-fold validation
 
 **YOLO11m-seg · 583 images · 15 classes · input 1024 px · batch 4**
 
@@ -47,18 +56,24 @@
 
 ![Five recorded fold mask mAP50–95 values with their mean and one sample standard deviation.](assets/fold-validation.svg)
 
-**Figure 3.** Mean ± sample SD across five folds, selecting each fold's best validation mask mAP50–95 epoch. [Experiment details](docs/experiments.md).
+**Figure 3.** Mean ± sample SD across five folds, selecting each fold's best validation mask mAP50–95 epoch. [Per-fold results](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) · [CSV](results/recorded-fold-metrics.csv).
+
+## Segmentation predictions
+
+![Original report collage showing predicted crystal instance masks, class labels and confidence scores across microscopy fields.](assets/validation-predictions.jpg)
+
+**Figure 4.** Predicted masks, class labels and confidence scores from report Figure 6.3. The exact model, fold and checkpoint are not specified in the source figure.
 
 ## Repository guide
 
-| Location | Contents |
-| --- | --- |
-| [notebooks/](notebooks/) | Training code and saved outputs. |
-| [scripts/](scripts/) | Preprocessing and training helpers. |
-| [data/](data/) | Microscopy images and polygon labels. |
-| [metadata/](metadata/) | Image metadata and class mappings. |
-| [results/](results/) | Fold metrics and model summary. |
-| [docs/](docs/) | Methodology, experiments and reports. |
+| Location | Contents | Start here |
+| --- | --- | --- |
+| [notebooks/](notebooks/) | Data preparation, training and saved outputs. | [Training notebook](notebooks/PRI_train.ipynb) |
+| [scripts/](scripts/) | Metadata extraction and training helpers. | [Preprocessing script](scripts/preprocessing/data_preprocessing_image_metadata.py) |
+| [data/](data/) | Microscopy images and expert polygon labels. | [Dataset guide](docs/data.md) |
+| [metadata/](metadata/) | Image records and species mappings. | [Image metadata CSV](metadata/image_metadata.csv) |
+| [results/](results/) | Fold metrics and the model summary. | [Fold metrics CSV](results/recorded-fold-metrics.csv) |
+| [docs/](docs/) | Architecture, experiments and project materials. | [Experiments](docs/experiments.md) · [Architecture](docs/architecture.md) |
 
 ## Poster and presentation
 
