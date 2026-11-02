@@ -16,7 +16,7 @@ The [metadata CSV](../metadata/image_metadata.csv) consolidates names, paths, in
 | After alias merging and support filtering | 607 usable images, 19 classes, 7,492 retained instances | Notebook cell 10 |
 | After dropping four classes and images with no remaining annotations | 583 images, 15 classes | Notebook cells 29–36 |
 
-The early split accounts for 613 labeled images, while the later notebook matching stage counts 612. The notebook matches by filename stem and applies its own filtering. The exact one-image discrepancy has not been resolved. Treat these as separate recorded stages, rather than a verified lossless funnel.
+The early split accounts for 613 labeled images, while the later notebook matching stage counts 612. The notebook matches by filename stem and applies its own filtering. The one-image difference between these recorded stages remains unresolved.
 
 ## Annotations and class mapping
 
@@ -68,9 +68,9 @@ The instance counts sum to **7,371**. Image counts overlap because an image can 
 
 ![Original microscopy field alongside all seven C2 weddellite polygons from the expert annotation file.](../assets/annotation-example.svg)
 
-The field is `C2_taill_heter_lb.jpg` from `data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/`. The matching `.txt` file under `data/annotated/labels/train/` contains seven polygons, all assigned source ID **15 / C2_weddellite**. That source ID maps to **4** in the retained 15-class vocabulary. No original image, polygon coordinates or class IDs have been modified.
+The field is `C2_taill_heter_lb.jpg` from `data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/`. The matching `.txt` file under `data/annotated/labels/train/` contains seven polygons, all assigned source ID **15 / C2_weddellite**. That source ID maps to **4** in the retained 15-class vocabulary.
 
-The figure draws every polygon from this label file after scaling its normalised vertices to the source image dimensions. It shows expert annotations, not inferred masks or a ground-truth/prediction comparison. No exact training/validation fold is assigned to this illustration. [Full source vocabulary](../data/annotated/data.yaml) · [Recorded model predictions](media-guide.md#prediction-collage).
+The figure draws every polygon from this label file after scaling its normalised vertices to the source image dimensions. It shows expert annotations; model predictions are available separately. [Full source vocabulary](../data/annotated/data.yaml) · [Recorded model predictions](media-guide.md#prediction-collage).
 
 ## Class imbalance
 
@@ -84,9 +84,9 @@ The figure uses the original source codes. The full species names are in the CSV
 
 Notebook cells 22–23 inspect TIFF image modes and convert two RGBA images to RGB in the cleaned working copy, after making backups there. The raw collection is preserved. Other preparation steps remove unusable annotations and remap retained class IDs.
 
-Some notebook operations index images and labels by stem rather than full relative path. Any future pipeline refactor should check name collisions before flattening directories. The source review also mentions crops, duplicate photographs and different lighting views of a sample. Image-level folds do not by themselves establish independence at patient or specimen level.
+Some notebook stages match images and labels by filename stem. The source review describes related crops and different lighting views of a sample; patient or specimen grouping is not available for the reported image-level folds.
 
-The current export has 659 images and 612 nonempty label files. A tree-based audit found no repeated exact image stems. The early split lists also contain Unicode normalisation differences in accented names, described in the [path audit](../data/README.md#path-audit). This check does not replace pixel-level or specimen-level analysis.
+The export contains 659 images and 612 nonempty label files. The [data layout](../data/README.md) documents its source splits and filename encoding.
 
 ## Train/validation strategy
 

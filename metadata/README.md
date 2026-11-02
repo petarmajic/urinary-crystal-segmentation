@@ -24,4 +24,4 @@ There are **581 rows marked `No` and 78 marked `Yes`** in the mixture field. Onl
 
 The script preserves useful clues from inconsistent source names, including tokens for polarised light and mixtures. It also records folder-based fallbacks. The [French coding guide](../docs/domain-notes/crystal-coding-guide-fr.docx) explains the original terminology.
 
-`rel_path` retains the old `RawData/SÇlection cristaux Hennet` prefix. The corresponding source collection is now in [`data/raw/`](../data/raw/). Do not treat the stored path as a current executable path. Decimal pH parsing has a known implementation issue; see [execution notes](../docs/reproducibility.md#known-issues).
+`rel_path` retains the old `RawData/SÇlection cristaux Hennet` prefix. The corresponding source collection is now in [`data/raw/`](../data/raw/). This is a historical metadata field. Decimal pH parsing has a known issue described in [execution notes](../docs/reproducibility.md#known-issues).

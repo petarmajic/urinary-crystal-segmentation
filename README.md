@@ -2,6 +2,10 @@
 
 **Instance segmentation of urinary crystals in microscopy images**, where several species can appear in the same field of view. I prepared the images and expert polygon labels, harmonised the class vocabulary, and fine-tuned pretrained YOLO11 segmentation models with five-fold validation.
 
+![Main YOLO11m-seg experiment: validation mask mAP50–95 of 0.487 plus or minus 0.045 across five folds, using 583 images and 15 classes.](assets/results-overview.svg)
+
+*YOLO11m-seg, 1024 px. Mean ± sample SD of each fold's best validation epoch. [Experiment details](docs/experiments.md).*
+
 **Python · Ultralytics YOLO11 · NumPy · pandas · Pillow · multilabel stratification**
 
 [Training notebook](notebooks/PRI_train.ipynb) · [Architecture](docs/architecture.md) · [Data](docs/data.md) · [Technical report](docs/reports/project-report.pdf)
@@ -10,7 +14,7 @@
 
 ![Research diagram showing annotation preparation, the 583-image dataset, five-fold validation and the multiscale YOLO11m-seg mask-prediction architecture.](assets/workflow.svg)
 
-**Figure 1.** The main **15-class YOLO11m-seg experiment**: prepared image–polygon pairs, multilabel-stratified folds, multiscale features and instance-mask prediction. The model architecture is provided by Ultralytics; tensor volumes and fold cells are schematic. Filename metadata supports the dataset audit and is not a model input.
+**Figure 1.** The **15-class YOLO11m-seg experiment**: image–polygon pairs, multilabel-stratified folds, multiscale features and instance-mask prediction. Ultralytics provides the model architecture; volumes and fold cells are schematic.
 
 [Model structure, tensor dimensions and mask reconstruction →](docs/architecture.md)
 
@@ -24,7 +28,7 @@ The main experiment retains **15 labels across 583 images**, with **7,371 annota
 | **AU2** · Uric acid dihydrate | **CAL** · Calcite | **PACC** · Plaque vitreuse¹ |
 | **Br** · Brushite | **CYS** · Cystine | **PAM** · Struvite |
 | **C1** · Whewellite | **DHAd** · Dihydroxyadenine | **UrAm** · Anhydrous ammonium urate |
-| **C2** · Weddellite | **NASD** · N-acetylsulfadiazine | **VAT** · Vaterite |
+| **C2** · Weddellite | **NASD** · N&#8209;acetylsulfadiazine | **VAT** · Vaterite |
 
 ¹ Original training-label wording retained. [Exact class names, remapped IDs and support counts](docs/data.md#segmentation-classes).
 
@@ -59,8 +63,6 @@ The main experiment retains **15 labels across 583 images**, with **7,371 annota
 | [Data](docs/data.md) · [Architecture](docs/architecture.md) | Dataset stages, the 15 retained labels, feature scales and the mask head. |
 | [Experiments](docs/experiments.md) · [Execution notes](docs/reproducibility.md) | Run settings, fold metrics, historical paths and preparation for a new run. |
 | [Report](docs/reports/project-report.pdf) · [Poster](docs/reports/project-poster.pdf) | Original methodology, discussion and visual evidence. |
-| [Recorded presentation · 2:17](docs/media/project-presentation.mp4) · [Defence slides](docs/presentations/project-defence.pptx) | Project explanation and original presentation materials. |
-
-[All materials and source guide](docs/media-guide.md) · [Figure sources and regeneration](assets/README.md)
+| [Recorded presentation · 2:17](docs/media/project-presentation.mp4) · [Defence slides](docs/presentations/project-defence.pptx) | Project explanation and presentation materials. [Material guide](docs/media-guide.md). |
 
 *Research and Innovation Project (PRI), completed during my Erasmus exchange at Polytech Tours, Université de Tours. CHU Orléans medical engineers provided the manual annotations. [Project context](docs/project.md).*

@@ -1,10 +1,10 @@
 # Experiments and recorded results
 
-## How to read the results
+## Reported experiment
 
 The main README reports the **15-class YOLO11m-seg experiment**. Its summary selects the epoch with the highest validation mask mAP50–95 in each fold, then calculates the mean and sample standard deviation across five folds. This selection uses validation data, so the reported result is not an unbiased estimate on a separate test set.
 
-The source is the saved output of zero-based cell 38 in [`PRI_train.ipynb`](../notebooks/PRI_train.ipynb). [Recorded per-fold metrics](../results/recorded-fold-metrics.csv) preserve the table values and selection rules. The figures and tables here use these recorded outputs; they are not results of a new training run.
+The source is the saved output of zero-based cell 38 in [`PRI_train.ipynb`](../notebooks/PRI_train.ipynb). [Recorded per-fold metrics](../results/recorded-fold-metrics.csv) preserve the table values and selection rules. The figures and tables use these saved outputs.
 
 ## Protocols
 
@@ -24,9 +24,9 @@ The source is the saved output of zero-based cell 38 in [`PRI_train.ipynb`](../n
 
 The 15-class variant removes four labels and any image left without a retained instance. Its training call sets `degrees=15`, `translate=0.10`, `scale=0.50`, `fliplr=0.5`, `flipud=0.5`, `mosaic=0`, `mixup=0`, `hsv_h=0.01`, `hsv_s=0.10`, `hsv_v=0.10` and `workers=0`. Other settings follow the installed library's behaviour. The split seed is distinct from the trainer seed; saved trainer output records `seed=0`.
 
-The earlier experiment needs particular care. The report describes a configuration with augmentations disabled, and notebook cell 20 contains that attempt. The later successful call in cell 24 omits those overrides. Its saved trainer log shows defaults including `mosaic=1.0`, `fliplr=0.5` and `scale=0.5`. The summary includes `fold_116`, reflecting retries. Use the code and saved run output when interpreting the actual experiment, rather than assuming all earlier runs used the settings in the report.
+For the earlier experiment, the disabled-augmentation call in cell 20 was followed by a successful call in cell 24 with defaults including `mosaic=1.0`, `fliplr=0.5` and `scale=0.5`. The saved summary includes the retry directory `fold_116`.
 
-The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](../configs/hyp.yaml) describe a **separate 640 px setup**. They should not be used to explain the 1024 px Colab results.
+The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](../configs/hyp.yaml) describe a **separate 640 px setup**. The notebook results use the separate 1024 px configuration above.
 
 ## YOLO11m-seg: per-fold mask metrics
 
@@ -41,7 +41,7 @@ The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](
 
 ![Mask mAP50–95 values across five validation folds](../assets/fold-validation.svg)
 
-Fold 1 has the highest recorded selected-epoch mAP50–95. Reporting only its 0.54213 would hide the spread between folds. The shaded band shows one sample standard deviation around the mean, not a confidence interval.
+Selected fold scores range from 0.43539 to 0.54213. The shaded band represents one sample standard deviation around the mean, not a confidence interval.
 
 ## Earlier YOLO11n-seg result
 
@@ -54,7 +54,7 @@ Fold 1 has the highest recorded selected-epoch mAP50–95. Reporting only its 0.
 | `fold_5` | 0.51591 | 0.49205 | 0.50193 | 0.35498 |
 | **Mean ± SD** | **0.6040 ± 0.0599** | **0.5609 ± 0.0699** | **0.5735 ± 0.0581** | **0.4035 ± 0.0443** |
 
-These rows come from the **last recorded epoch**, as selected by notebook cell 26. They should not be relabelled as each fold's best epoch.
+Cell 26 selects the **last recorded epoch** in each listed directory.
 
 ## What the metrics measure
 
@@ -66,11 +66,11 @@ The tables use the `(M)` columns from Ultralytics results. They are separate fro
 
 ## Interpretation and limitations
 
-The later configuration has higher recorded scores, but **several factors change together**: model size, retained classes, image set, augmentation settings, training budget and summary selection. The experiments do not isolate the effect of any one change. No relative improvement percentage is attributed solely to YOLO11m.
+The later configuration has higher recorded scores, but **several factors change together**: model size, retained classes, image set, augmentation settings, training budget and summary selection. The experiments therefore do not isolate the effect of model size.
 
-Five-fold stratification balances image-level class presence. It does not establish separation by patient, specimen or acquisition session. The original review describes crops, duplicates and views of the same sample under different lighting. Group identifiers and perceptual similarity would need separate investigation before stronger generalisation claims.
+Five-fold stratification balances image-level class presence. It does not establish separation by patient, specimen or acquisition session. The original review describes crops, duplicates and views of the same sample under different lighting. Patient/specimen grouping was not established for these folds.
 
-The report's confusion matrices and prediction collage provide qualitative evidence, but their exact generating checkpoints are not identified in the figure files. The report also notes a negative entry in an earlier normalised confusion matrix. That plot is retained in the original report rather than reconstructed or treated as a valid probability table. Background row/column interpretation requires checking the original evaluator's axis convention.
+The report's confusion matrices and prediction collage provide qualitative evidence, but their exact generating checkpoints are not identified in the figure files. The report also notes a negative entry in an earlier normalised confusion matrix. That matrix is excluded from the quantitative summaries.
 
 The unannotated `test_split.txt` subset has no ground truth for quantitative testing. There is no independent external or clinical test in the inspected artifacts. Class imbalance and limited support for rare species remain relevant when reading the aggregate scores.
 
@@ -84,4 +84,3 @@ The unannotated `test_split.txt` subset has no ground truth for quantitative tes
 | Per-epoch run CSVs / exported model checkpoints | Not present as standalone files in the inspected source tree |
 | Original run ZIP | Its export log is saved in notebook cell 39; the ZIP itself is not included |
 
-The report preserves its original wording. This guide clarifies differences between that narrative, the notebook calls and the saved outputs.
