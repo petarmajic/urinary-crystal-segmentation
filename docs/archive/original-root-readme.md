@@ -1,1 +1,0 @@
-# urinary-crystal-segmentation

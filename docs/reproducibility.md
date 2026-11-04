@@ -1,45 +1,50 @@
-# Environment and execution notes
+# Environment and execution
 
-## Start with the saved experiment
+## Notebook and data paths
 
-Open [`notebooks/PRI_train.ipynb`](../notebooks/PRI_train.ipynb) to inspect the original code and outputs. The [cell index](../notebooks/README.md) separates preparation, training attempts and the two result summaries. Read [experiments.md](experiments.md) before comparing results.
+The [Colab notebook](../notebooks/PRI_train.ipynb) mounts Drive, extracts the dataset ZIP under `/content/ds/cristals-YOLO_Ultralytics_v1.0`, prepares the clean datasets and generates fold files. Its saved cells include training attempts and retries; a complete fresh execution has not been verified.
 
-The notebook was written for Google Colab with a Drive-hosted ZIP. It extracts a directory named `cristals-YOLO_Ultralytics_v1.0` under `/content/ds/` and creates cleaned datasets and fold files there. It is an experiment record with retries, rather than a verified clean run-all entry point.
+| Path or file | Role |
+| --- | --- |
+| `data/annotated/` | Source CVAT/YOLO image and polygon export |
+| `dataset_clean` | Colab working dataset for the 19-class experiment |
+| `dataset_clean_drop4` | Colab working dataset for the 15-class experiment |
+| `kfold/data_fold_*_abs.yaml` | Generated per-fold image lists and dataset configuration |
+| `runs_kfold_drop4_yolo11m` | Later training runs, referenced by the saved summaries |
+
+The clean datasets, generated fold lists, original run CSVs and trained checkpoints are not included as standalone files. Their creation and outputs are recorded in the notebook. The existing source split files describe the earlier 80/20 division; see [data layout](../data/README.md).
 
 ## Recorded environment
 
-Saved training logs show **Python 3.12.12**, **Ultralytics 8.4.14**, **PyTorch 2.9.0+cu126** and an **NVIDIA L4 GPU**. These describe the recorded Colab session. They are not a newly tested installation specification or a guarantee that all cells used the same environment.
+| Component | Saved version or device |
+| --- | --- |
+| Python | 3.12.12 |
+| Ultralytics | 8.4.14 |
+| PyTorch | 2.9.0+cu126 |
+| Earlier experiment GPU | NVIDIA L4 |
+| Later 15-class experiment GPU | NVIDIA A100-SXM4-80GB |
 
-Directly used packages visible in the notebook include `ultralytics`, `numpy`, `pandas`, `PyYAML`, `Pillow` and `iterative-stratification`. The metadata extraction script uses Python's standard library. No complete lockfile was supplied. A new pinned environment should be verified separately rather than inferred from the package list.
-
-## Before a new run
-
-1. Prepare a separate working copy of the data. Preserve the raw images and source annotations.
-2. Configure the notebook's Drive ZIP and `/content/ds/` paths, or adapt a separate runnable copy to the new location.
-3. Confirm full-path image/label matching, image modes and the class mappings for the selected experiment.
-4. Generate the intended clean dataset and five fold lists. Do not substitute the early 80/20 lists.
-5. Inspect the resulting train/validation paths and class counts before starting a GPU training run.
-6. Save the environment, fold lists, training arguments, per-epoch CSVs and checkpoint identities together.
-
-These are preparation instructions, not a claim that the training was rerun during repository organisation.
+Other packages used directly include NumPy, pandas, PyYAML, Pillow and iterative-stratification. A complete environment lockfile is unavailable.
 
 ## Known issues
 
-| Original material | Issue / implication |
+| Component | Current behaviour |
 | --- | --- |
-| Metadata script | Opens JSON mappings relative to the working directory and uses the historical `RawData/SÇlection cristaux Hennet` path |
-| pH parser | Captures but does not use the fractional regex group consistently; a value such as `pH8.5` needs correction and a targeted test before trusting regenerated pH fields |
-| Existing CSV | Retains historical paths and original extracted values; it has not been silently regenerated |
-| Local split/training helpers | Several paths are absolute `/Users/petarmajic/...` paths; adapt a separate working version before execution |
-| Original 80/20 split lists | 173 paths differ from the source tree only by Unicode normalisation of accented characters; normalise/resolve paths in a working copy before execution |
-| Notebook image indexes | Some stages match by stem, which should be audited before flattening or refactoring |
-| Notebook cell 25 | Retains a saved `FileNotFoundError` from exploratory path inspection |
-| Intermediate clean dataset YAML | Temporarily points train and validation to `images/all`; the fold-specific lists are required for the described evaluation |
-| Earlier experiment summary | Discovers `fold*` directories including retries and selects their last epoch |
-| Later experiment summary | Uses validation mAP50–95 to select an epoch per fold; results need a separate test set for unbiased final assessment |
+| Metadata script | Resolves JSON mappings from the working directory and uses a historical `RawData/SÇlection cristaux Hennet` prefix. |
+| pH extraction | The parser does not consistently include the decimal part; stored values such as `pH8.5` require correction before reuse. |
+| Local helper scripts | Contain absolute `/Users/petarmajic/...` paths. |
+| Earlier split lists | 173 accented paths differ from the source names in Unicode normalisation. They resolve after NFC normalisation. |
+| Image matching | Some notebook stages match files by stem. |
+| Notebook cell 25 | Contains a saved `FileNotFoundError` from run-path inspection. |
 
-The organisation changes preserve the original source blobs. Logical fixes, a portable CLI and extraction into a Python package are separate future work.
+For training, the notebook's Drive ZIP and working paths must point to the available data. The chosen experiment's fold YAML files determine its train/validation split. [Training settings and result selection](experiments.md) describe both protocols.
 
-## Large artifacts
+## Rebuild the figures
 
-The source repository includes the full image collection and its annotation export. Their contents and internal hierarchy are preserved under `data/`. This relocation does not make the Git history smaller. Dataset/model distribution or Git LFS migration should be planned separately, with data-provider permissions confirmed before external redistribution.
+From the repository root, with Matplotlib, NumPy and Pillow installed:
+
+```bash
+python scripts/documentation/research_figures.py
+```
+
+The script extracts the saved module table and renders four SVG figures from the notebook outputs, CSV tables and existing image/polygon files. It runs no training or inference. [Figure sources](../assets/README.md).
