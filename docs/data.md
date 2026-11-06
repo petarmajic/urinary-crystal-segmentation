@@ -2,9 +2,9 @@
 
 ## Source collection
 
-CHU Orléans medical experts supplied microscopy images with species codes and acquisition clues in their filenames. The original collection contains **659 images**. Images vary in resolution, illumination and morphology, and some show several species. The initial [dataset review](domain-notes/initial-dataset-review-fr.docx) explains why a directory name cannot be used directly as a complete label.
+CHU Orléans medical experts supplied microscopy images with species codes and acquisition clues in their filenames. The original collection contains **659 images**. Images differ in resolution, lighting and crystal shape. Some contain several species. The initial [dataset review](domain-notes/initial-dataset-review-fr.docx) explains why a directory name cannot be used directly as a complete label.
 
-The [metadata CSV](../metadata/image_metadata.csv) consolidates names, paths, inferred species, mixture flags, abbreviations and pH. [Its field guide](../metadata/README.md) distinguishes extracted metadata from expert ground truth.
+The [metadata CSV](../metadata/image_metadata.csv) records image names, paths, species inferred from filenames, mixtures, abbreviations and pH. [The field guide](../metadata/README.md) explains how each field was extracted and how it differs from an expert annotation.
 
 ## Preparation stages
 
@@ -30,7 +30,7 @@ Coordinates are normalised polygon vertices. An image may contain multiple insta
 
 The source [`data.yaml`](../data/annotated/data.yaml) contains 41 class IDs. Notebook cell 6 merges five aliases:
 
-| Original ID/name | Canonical target |
+| Original ID/name | Mapped label |
 | --- | --- |
 | 0 / brushite | 13 / Br_brushite |
 | 1 / calcite | 17 / CAL_calcite |
@@ -38,7 +38,7 @@ The source [`data.yaml`](../data/annotated/data.yaml) contains 41 class IDs. Not
 | 3 / cystine | 22 / CYS_cystine |
 | 4 / dihydroxyadénine | 23 / DHAd_dihydroxyadénine |
 
-This produces 36 unique canonical names. The notebook then removes classes without support and keeps classes present in at least five labeled images, producing the 19-class experiment. The 15-class variant additionally removes `ATZ_atazanavir`, `Cylindre`, `CEF_ceftriaxonate_de_calcium` and `CHOL_cholestérol`. Class IDs are remapped separately for each derived dataset. The source annotations remain unchanged in this repository.
+This gives 36 class names. The notebook keeps classes present in at least five labelled images, producing the 19-class experiment. The 15-class variant additionally removes `ATZ_atazanavir`, `Cylindre`, `CEF_ceftriaxonate_de_calcium` and `CHOL_cholestérol`. Class IDs are remapped separately for each derived dataset. The source annotations remain unchanged in this repository.
 
 ## Segmentation classes
 
@@ -72,17 +72,17 @@ The field is `C2_taill_heter_lb.jpg` from `data/annotated/images/train/cristaux_
 
 The figure draws every polygon from this label file after scaling its normalised vertices to the source image dimensions. It shows expert annotations; model predictions are available separately. [Full source vocabulary](../data/annotated/data.yaml) · [Recorded model predictions](media-guide.md#prediction-collage).
 
-## Class imbalance
+## Images and objects per class
 
 ![Recorded image and instance support for each of the 15 retained classes](../assets/class-support.svg)
 
-Source: saved notebook cell 35, also available as [CSV](../metadata/derived/drop4-class-support.csv). Image counts overlap because an image can contain several species. Instance counts count annotated objects. A class with relatively few images can have many objects in each image.
+Source: saved notebook cell 35, also available as [CSV](../metadata/derived/drop4-class-support.csv). Image counts overlap because an image can contain several species. Instance counts give the number of annotated crystals. For example, CAL has 980 instances in 23 images, while C2 has 485 instances in 135 images. A large number of objects therefore does not necessarily mean that a class has many different images.
 
 The figure uses the original source codes. The full species names are in the CSV and [domain coding guide](domain-notes/crystal-coding-guide-fr.docx). `PACC_Plaque_vitreuse` is retained as the original training label, without reinterpreting its clinical meaning.
 
 ## Image compatibility and matching
 
-Notebook cells 22–23 inspect TIFF image modes and convert two RGBA images to RGB in the cleaned working copy, after making backups there. The raw collection is preserved. Other preparation steps remove unusable annotations and remap retained class IDs.
+Notebook cells 22–23 inspect TIFF image modes and convert two RGBA images to RGB in the cleaned working copy, after making backups there. The conversions apply to the working dataset. Other preparation steps remove unusable annotations and update the class IDs of the remaining labels.
 
 Some notebook stages match images and labels by filename stem. The source review describes related crops and different lighting views of a sample; patient or specimen grouping is not available for the reported image-level folds.
 

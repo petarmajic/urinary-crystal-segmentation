@@ -1,6 +1,6 @@
 # Figure sources
 
-All generated figures use the saved experiment evidence. Source cell numbers below are zero-based notebook positions.
+The figures use the model summary, fold results, class counts and source images listed below.
 
 | Figure | Data or source |
 | --- | --- |
@@ -10,9 +10,9 @@ All generated figures use the saved experiment evidence. Source cell numbers bel
 | `annotation-example.svg` | `C2_taill_heter_lb.jpg` and all seven polygons from its matching label file. Source ID 15 maps to ID 4 in the prepared dataset. |
 | `source/microscopy-example.jpg` | Embedded microscopy image from the original project poster, used to illustrate the input collection. |
 
-Numeric inputs are available in [fold metrics](../results/recorded-fold-metrics.csv), [class support](../metadata/derived/drop4-class-support.csv) and the [module summary](../results/yolo11m-layer-summary.csv).
+The plotted values are available in [fold metrics](../results/recorded-fold-metrics.csv), [class support](../metadata/derived/drop4-class-support.csv) and the [module summary](../results/yolo11m-layer-summary.csv).
 
-## Original visual extracts
+## Report and presentation images
 
 | Asset | Source |
 | --- | --- |

@@ -3,10 +3,10 @@
 | File | Role |
 | --- | --- |
 | [image_metadata.csv](image_metadata.csv) | 659 image records produced during the dataset review |
-| [species_mapping.json](species_mapping.json) | Species codes, canonical names and recognised text variants |
+| [species_mapping.json](species_mapping.json) | Species codes, names and recognised spelling variants |
 | [abbreviation_mapping.json](abbreviation_mapping.json) | Abbreviation codes, explanations and variants used by the parser |
 | [abbreviation_mapping.csv](abbreviation_mapping.csv) | Tabular abbreviation reference |
-| [derived/drop4-class-support.csv](derived/drop4-class-support.csv) | Class support transcribed programmatically from saved notebook cell 35; 15-class experiment |
+| [derived/drop4-class-support.csv](derived/drop4-class-support.csv) | Image and instance counts from the 15-class experiment in notebook cell 35 |
 
 ## CSV fields
 
@@ -20,7 +20,7 @@
 | `ph` | Value extracted from a pH pattern when available |
 | `notes` | How a species value was inferred, or that none was found |
 
-There are **581 rows marked `No` and 78 marked `Yes`** in the mixture field. Only **65 rows** contain a pH value. These are outputs of filename parsing, not a separate expert annotation of every field. In particular, `No` does not prove that an image contains a single species.
+There are **581 rows marked `No` and 78 marked `Yes`** in the mixture field. Only **65 rows** contain a pH value. The parser assigns these fields from the filename and folder name. For example, `No` means that it did not find a second species code, rather than confirming that only one species is present.
 
 The script preserves useful clues from inconsistent source names, including tokens for polarised light and mixtures. It also records folder-based fallbacks. The [French coding guide](../docs/domain-notes/crystal-coding-guide-fr.docx) explains the original terminology.
 

@@ -2,9 +2,9 @@
 
 ## Reported experiment
 
-The main README reports the **15-class YOLO11m-seg experiment**. Its summary selects the epoch with the highest validation mask mAP50–95 in each fold, then calculates the mean and sample standard deviation across five folds. This selection uses validation data, so the reported result is not an unbiased estimate on a separate test set.
+The main README reports the **15-class YOLO11m-seg experiment**. Its summary selects the epoch with the highest validation mask mAP50–95 in each fold, then calculates the mean and sample standard deviation across five folds. These are validation results because the same folds are used to select the reported epochs.
 
-The source is the saved output of zero-based cell 38 in [`PRI_train.ipynb`](../notebooks/PRI_train.ipynb). [Recorded per-fold metrics](../results/recorded-fold-metrics.csv) preserve the table values and selection rules. The figures and tables use these saved outputs.
+The values come from the saved fold summary in cell 38 of [`PRI_train.ipynb`](../notebooks/PRI_train.ipynb). [Recorded per-fold metrics](../results/recorded-fold-metrics.csv) preserve the table values and selection rules. The figures and tables use these saved outputs.
 
 ## Protocols
 
@@ -41,7 +41,7 @@ The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](
 
 ![Mask mAP50–95 values across five validation folds](../assets/fold-validation.svg)
 
-Selected fold scores range from 0.43539 to 0.54213. The shaded band represents one sample standard deviation around the mean, not a confidence interval.
+The selected fold scores range from 0.43539 to 0.54213. The shaded band shows one sample standard deviation around the mean. It describes the variation between these five fold results.
 
 ## Earlier YOLO11n-seg result
 
@@ -68,19 +68,18 @@ The tables use the `(M)` columns from Ultralytics results. They are separate fro
 
 The later configuration has higher recorded scores, but **several factors change together**: model size, retained classes, image set, augmentation settings, training budget and summary selection. The experiments therefore do not isolate the effect of model size.
 
-Five-fold stratification balances image-level class presence. It does not establish separation by patient, specimen or acquisition session. The original review describes crops, duplicates and views of the same sample under different lighting. Patient/specimen grouping was not established for these folds.
+The fold assignment uses the classes present in each image. It does not group images by patient, specimen or acquisition session. The dataset review describes related crops and views of the same sample under different lighting, so those relationships need to be considered when interpreting the validation scores.
 
-The report's confusion matrices and prediction collage provide qualitative evidence, but their exact generating checkpoints are not identified in the figure files. The report also notes a negative entry in an earlier normalised confusion matrix. That matrix is excluded from the quantitative summaries.
+The report's confusion matrices and prediction collage show individual model outputs, but the figure files do not identify the checkpoints that produced them. The report also notes a negative entry in an earlier normalised confusion matrix. That matrix is excluded from the quantitative summaries.
 
-The unannotated `test_split.txt` subset has no ground truth for quantitative testing. There is no independent external or clinical test in the inspected artifacts. Class imbalance and limited support for rare species remain relevant when reading the aggregate scores.
+The images in `test_split.txt` have no annotations, so they cannot be used to calculate test metrics. The project does not include an independent external or clinical test. Some species also have far fewer labelled images than others, so the overall scores should be read alongside the [image and instance counts](data.md#images-and-objects-per-class).
 
-## Available evidence
+## Experiment files
 
-| Artifact | Available here |
+| File or material | Available here |
 | --- | --- |
 | Notebook code and saved training logs | [Original notebook](../notebooks/PRI_train.ipynb) |
 | Recorded fold summary values | [CSV](../results/recorded-fold-metrics.csv) |
 | Written methodology and original figures | [Report](reports/project-report.pdf), Chapter 6 |
-| Per-epoch run CSVs / exported model checkpoints | Not present as standalone files in the inspected source tree |
+| Per-epoch run CSVs / exported model checkpoints | Not included as separate files |
 | Original run ZIP | Its export log is saved in notebook cell 39; the ZIP itself is not included |
-

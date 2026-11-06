@@ -2,7 +2,7 @@
 
 ## Problem
 
-Microscopy images can contain several urinary crystal species and multiple objects of each species. Folder names and filenames provide useful clues, but do not describe every object. This project uses instance segmentation to locate crystals and assign a class to each instance.
+Microscopy images can contain several urinary crystal species and multiple objects of each species. Folder names and filenames help identify the contents of an image, but they do not label each crystal. This project uses instance segmentation to locate crystals and assign a class to each instance.
 
 ## Academic context
 
@@ -12,11 +12,11 @@ The report, *Detection of crystals in medical images — Research and Innovation
 
 ## My contribution
 
-I reviewed the image collection, extracted structured metadata, prepared image–polygon pairs, harmonised and filtered classes, fine-tuned YOLO segmentation models, and analysed five-fold validation results. The report, poster and recorded presentation explain the methodology and findings.
+I reviewed the images, extracted filename metadata and matched images to their polygon annotations. I then merged different labels for the same species, removed classes with too few examples and prepared the training sets. I fine-tuned the YOLO segmentation models and analysed the results across five validation folds. The report, poster and recorded presentation describe the methods and results.
 
-CHU Orléans medical engineers produced the manual CVAT polygon annotations used for training and validation. The collaboration's coding guide and dataset notes supplied the domain terminology.
+CHU Orléans medical engineers produced the manual CVAT polygon annotations used for training and validation. Their coding guide and dataset notes explain the species names and filename abbreviations.
 
-| Work | Evidence |
+| Work | Code and materials |
 | --- | --- |
 | Dataset review and metadata | [Extraction script](../scripts/preprocessing/data_preprocessing_image_metadata.py), [CSV and mappings](../metadata/README.md) |
 | Annotation processing and folds | [Notebook](../notebooks/PRI_train.ipynb), cells 6–16 and 29–36 |
