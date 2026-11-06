@@ -2,7 +2,7 @@
 
 ## Notebook and data paths
 
-The [Colab notebook](../notebooks/PRI_train.ipynb) mounts Drive, extracts the dataset ZIP under `/content/ds/cristals-YOLO_Ultralytics_v1.0`, prepares the clean datasets and generates fold files. Its saved cells include training attempts and retries; a complete fresh execution has not been verified.
+The [Colab notebook](../notebooks/PRI_train.ipynb) mounts Drive, extracts the dataset ZIP under `/content/ds/cristals-YOLO_Ultralytics_v1.0`, prepares the clean datasets and generates fold files. The saved cells include the training attempts, retries and completed fold summaries.
 
 | Path or file | Role |
 | --- | --- |
@@ -47,4 +47,4 @@ From the repository root, with Matplotlib, NumPy and Pillow installed:
 python scripts/documentation/research_figures.py
 ```
 
-The script extracts the saved module table and renders four SVG figures from the notebook outputs, CSV tables and existing image/polygon files. It runs no training or inference. [Figure sources](../assets/README.md).
+The script reads the saved model summary, fold metrics, class counts and image annotations to build the four SVG figures. [Figure sources](../assets/README.md).

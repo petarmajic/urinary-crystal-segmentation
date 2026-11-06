@@ -13,7 +13,7 @@
 
 [![Original validation collage from report Figure 6.3](../assets/validation-predictions.jpg)](../assets/validation-predictions.jpg)
 
-**Report Figure 6.3, PDF page 23.** Predicted instance masks, class labels and confidence scores across several microscopy fields. The exact model, fold and checkpoint are not identified in the figure, so this is qualitative evidence independent of the selected-epoch metric table.
+**Report Figure 6.3, PDF page 23.** Predicted instance masks, class labels and confidence scores across several microscopy fields. The figure does not identify the model, fold or checkpoint, so it cannot be linked to a specific row in the metric table.
 
 The README's microscopy/polygon pair shows expert annotations. The collage above shows model predictions.
 
@@ -24,7 +24,7 @@ The README's microscopy/polygon pair shows expert annotations. The collage above
 | 1–4 | Objectives, tools and project phases |
 | 5–9 | Metadata, mixtures and acquisition variability |
 | 10–11 | CVAT annotation by the hospital engineers |
-| 12–15 | Label filtering, class support and fold preparation |
+| 12–15 | Label filtering, images per class and fold preparation |
 | 16–20 | Training calls, confusion matrices and result summaries |
 
 Slide 15 describes the earlier 607-image, 19-class dataset. The main README reports the later 583-image, 15-class experiment. Both are documented in [experiments](experiments.md).
@@ -35,4 +35,4 @@ The planning slides include an external YOLOv9 workflow reference and possible a
 
 ## Confusion matrices
 
-Report Figure 6.2, PDF page 22, contains the original confusion matrices. Their generating checkpoints are not identified. The report flags a negative entry in the earlier normalised matrix as an artifact; that matrix is not used for the quantitative summaries.
+Report Figure 6.2, PDF page 22, contains the original confusion matrices. Their generating checkpoints are not identified. The report flags a negative entry in the earlier normalised matrix as an error; that matrix is not used for the quantitative summaries.

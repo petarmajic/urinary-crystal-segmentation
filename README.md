@@ -1,6 +1,6 @@
 # Urinary crystal instance segmentation
 
-**Instance segmentation of urinary crystals in microscopy images**, where several species can appear in the same field of view. I prepared the images and expert polygon labels, harmonised the class vocabulary, and fine-tuned pretrained YOLO11 segmentation models with five-fold validation.
+Microscopy images can contain several crystal types and multiple crystals of each type. I prepared the images and expert polygon annotations for training, merged different labels for the same species and fine-tuned pretrained YOLO11 segmentation models with five-fold validation.
 
 **Python · Ultralytics YOLO11 · NumPy · pandas · Pillow · multilabel stratification**
 
@@ -24,7 +24,7 @@
 | **C1** · Whewellite | **DHAd** · Dihydroxyadenine | **UrAm** · Anhydrous ammonium urate |
 | **C2** · Weddellite | **NASD** · N&#8209;acetylsulfadiazine | **VAT** · Vaterite |
 
-¹ Original training label. [Class IDs and support counts](docs/data.md#segmentation-classes).
+¹ Original training label. [Class IDs and image counts](docs/data.md#segmentation-classes).
 
 ![One original microscopy field and its seven expert polygon annotations for C2 weddellite.](assets/annotation-example.svg)
 
@@ -32,9 +32,9 @@
 
 ## What I worked on
 
-- **Data preparation:** matched image/label files, handled incompatible TIFFs and extracted a 659-row metadata table from filenames and domain mappings. [Script](scripts/preprocessing/data_preprocessing_image_metadata.py) · [CSV](metadata/image_metadata.csv)
-- **Annotation processing:** merged five aliases, filtered sparse classes and remapped the retained polygon labels. [Preparation stages](docs/data.md#annotations-and-class-mapping)
-- **Model training:** fine-tuned YOLO11n-seg and YOLO11m-seg at 1024 px using distinct prepared datasets and training configurations. [Notebook guide](notebooks/README.md)
+- **Data preparation:** matched images to their label files, converted incompatible TIFFs and extracted a 659-row metadata table using filename codes and the hospital's coding guide. [Script](scripts/preprocessing/data_preprocessing_image_metadata.py) · [CSV](metadata/image_metadata.csv)
+- **Annotation processing:** merged five duplicate class labels, removed classes with too few labelled images and updated the polygon class IDs. [Preparation stages](docs/data.md#annotations-and-class-mapping)
+- **Model training:** fine-tuned YOLO11n-seg and YOLO11m-seg at 1024 px on two prepared datasets with different class sets and training settings. [Notebook guide](notebooks/README.md)
 - **Evaluation:** generated multilabel-stratified folds and analysed mask precision, recall and mAP across five validation folds. [Protocol](docs/experiments.md)
 
 ## Experiments
@@ -44,7 +44,7 @@
 | [YOLO11n-seg](docs/experiments.md#earlier-yolo11n-seg-result) | 607 images · 19 classes | 1024 px · up to 50 epochs |
 | [YOLO11m-seg](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) | 583 images · 15 classes | 1024 px · up to 100 epochs |
 
-Both runs use five multilabel-stratified folds. Dataset composition, augmentation and epoch-selection rules differ between the experiments.
+Both runs use five folds with multilabel stratification, which distributes images according to the classes they contain. The datasets, augmentation settings and rules for selecting the reported epoch differ between the experiments.
 
 ### Five-fold validation
 
@@ -56,13 +56,13 @@ Both runs use five multilabel-stratified folds. Dataset composition, augmentatio
 
 ![Five recorded fold mask mAP50–95 values with their mean and one sample standard deviation.](assets/fold-validation.svg)
 
-**Figure 3.** Mean ± sample SD across five folds, selecting each fold's best validation mask mAP50–95 epoch. [Per-fold results](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) · [CSV](results/recorded-fold-metrics.csv).
+**Figure 3.** Mean and sample standard deviation across five folds. For each fold, the summary uses the epoch with the highest validation mask mAP50–95. [Per-fold results](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) · [CSV](results/recorded-fold-metrics.csv).
 
 ## Segmentation predictions
 
 ![Original report collage showing predicted crystal instance masks, class labels and confidence scores across microscopy fields.](assets/validation-predictions.jpg)
 
-**Figure 4.** Predicted masks, class labels and confidence scores from report Figure 6.3. The exact model, fold and checkpoint are not specified in the source figure.
+**Figure 4.** Predicted masks, class labels and confidence scores from report Figure 6.3. The report does not identify the model, fold or checkpoint used to produce this figure.
 
 ## Repository guide
 
