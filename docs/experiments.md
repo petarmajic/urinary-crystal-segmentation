@@ -2,9 +2,9 @@
 
 ## Reported experiment
 
-The main README reports the **15-class YOLO11m-seg experiment**. Its summary selects the epoch with the highest validation mask mAP50–95 in each fold, then calculates the mean and sample standard deviation across five folds. These are validation results because the same folds are used to select the reported epochs.
+I ran five-fold validation for two YOLO11 segmentation models. For the **15-class YOLO11m-seg experiment**, I selected the epoch with the highest validation mask mAP50–95 in each fold and summarised the five selected rows using their mean and sample standard deviation. The held-out images in each fold therefore served both to select the epoch and to report its score.
 
-The values come from the saved fold summary in cell 38 of [`PRI_train.ipynb`](../notebooks/PRI_train.ipynb). [Recorded per-fold metrics](../results/recorded-fold-metrics.csv) preserve the table values and selection rules. The figures and tables use these saved outputs.
+Cell 38 of the [training notebook](../notebooks/PRI_train.ipynb) contains the saved summary. The [fold metrics CSV](../results/recorded-fold-metrics.csv) also records the earlier experiment’s selection rule.
 
 ## Protocols
 
@@ -24,9 +24,9 @@ The values come from the saved fold summary in cell 38 of [`PRI_train.ipynb`](..
 
 The 15-class variant removes four labels and any image left without a retained instance. Its training call sets `degrees=15`, `translate=0.10`, `scale=0.50`, `fliplr=0.5`, `flipud=0.5`, `mosaic=0`, `mixup=0`, `hsv_h=0.01`, `hsv_s=0.10`, `hsv_v=0.10` and `workers=0`. Other settings follow the installed library's behaviour. The split seed is distinct from the trainer seed; saved trainer output records `seed=0`.
 
-For the earlier experiment, the disabled-augmentation call in cell 20 was followed by a successful call in cell 24 with defaults including `mosaic=1.0`, `fliplr=0.5` and `scale=0.5`. The saved summary includes the retry directory `fold_116`.
+For the earlier experiment, I disabled augmentation in the attempt in cell 20. The run that completed in cell 24 used defaults including `mosaic=1.0`, `fliplr=0.5` and `scale=0.5`. The saved summary includes the retry directory `fold_116`.
 
-The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](../configs/hyp.yaml) describe a **separate 640 px setup**. The notebook results use the separate 1024 px configuration above.
+The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](../configs/hyp.yaml) describe a **separate 640 px setup**. Both experiments in the table used the 1024 px notebook configuration.
 
 ## YOLO11m-seg: per-fold mask metrics
 
@@ -39,9 +39,9 @@ The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](
 | 5 | 79 | 0.64486 | 0.59843 | 0.65183 | 0.44580 |
 | **Mean ± SD** | — | **0.7022 ± 0.0335** | **0.6306 ± 0.0513** | **0.6813 ± 0.0427** | **0.4874 ± 0.0453** |
 
-![Mask mAP50–95 values across five validation folds](../assets/fold-validation.svg)
+![Mask mAP50–95 values across five validation folds](../assets/mask-validation-folds.svg)
 
-The selected fold scores range from 0.43539 to 0.54213. The shaded band shows one sample standard deviation around the mean. It describes the variation between these five fold results.
+Fold 2 had the lowest selected score (0.43539 at epoch 86) and fold 1 the highest (0.54213 at epoch 74). The shaded band shows one sample standard deviation across the five selected scores.
 
 ## Earlier YOLO11n-seg result
 
@@ -54,21 +54,21 @@ The selected fold scores range from 0.43539 to 0.54213. The shaded band shows on
 | `fold_5` | 0.51591 | 0.49205 | 0.50193 | 0.35498 |
 | **Mean ± SD** | **0.6040 ± 0.0599** | **0.5609 ± 0.0699** | **0.5735 ± 0.0581** | **0.4035 ± 0.0443** |
 
-Cell 26 selects the **last recorded epoch** in each listed directory.
+For YOLO11n-seg I used the **last recorded epoch** in each listed directory, as shown in cell 26.
 
 ## What the metrics measure
 
-- **Mask precision / recall:** the evaluator's segmentation-mask precision and recall outputs for the run.
+- **Mask precision / recall:** precision measures how many predicted instances match ground truth under the evaluator’s matching rule. Recall measures how many annotated instances those predictions recover.
 - **Mask mAP50:** mean average precision for masks at IoU 0.50.
 - **Mask mAP50–95:** mean average precision for masks across IoU thresholds 0.50 to 0.95 in steps of 0.05.
 
-The tables use the `(M)` columns from Ultralytics results. They are separate from bounding-box `(B)` metrics and from image classification accuracy. Model confidence scores displayed on a prediction image are also separate quantities.
+I used the Ultralytics mask columns marked `(M)`. The columns marked `(B)` score bounding boxes. A confidence score on a prediction belongs to that detection.
 
 ## Interpretation and limitations
 
-The later configuration has higher recorded scores, but **several factors change together**: model size, retained classes, image set, augmentation settings, training budget and summary selection. The experiments therefore do not isolate the effect of model size.
+The later experiment had higher recorded mask scores. I also changed the image set, retained classes, augmentation, training budget and epoch-selection rule. These runs cannot establish how much of the difference came from changing the model size.
 
-The fold assignment uses the classes present in each image. It does not group images by patient, specimen or acquisition session. The dataset review describes related crops and views of the same sample under different lighting, so those relationships need to be considered when interpreting the validation scores.
+I split by image, using the classes present in each field. The source review describes crops and different lighting views of the same sample. Without patient, specimen or session grouping, related images could appear on both sides of a fold.
 
 The report's confusion matrices and prediction collage show individual model outputs, but the figure files do not identify the checkpoints that produced them. The report also notes a negative entry in an earlier normalised confusion matrix. That matrix is excluded from the quantitative summaries.
 

@@ -2,7 +2,7 @@
 
 ## Notebook and data paths
 
-The [Colab notebook](../notebooks/PRI_train.ipynb) mounts Drive, extracts the dataset ZIP under `/content/ds/cristals-YOLO_Ultralytics_v1.0`, prepares the clean datasets and generates fold files. The saved cells include the training attempts, retries and completed fold summaries.
+To inspect the results, open the saved fold summaries in cells 26 and 38 of the [Colab notebook](../notebooks/PRI_train.ipynb). To train again, point the Drive mount and ZIP path to your copy of the CVAT export. The notebook expects the extracted images, labels and YAML under `/content/ds/cristals-YOLO_Ultralytics_v1.0`. Run the preparation cells for the chosen experiment to write its clean dataset and fold files.
 
 | Path or file | Role |
 | --- | --- |
@@ -37,14 +37,14 @@ Other packages used directly include NumPy, pandas, PyYAML, Pillow and iterative
 | Image matching | Some notebook stages match files by stem. |
 | Notebook cell 25 | Contains a saved `FileNotFoundError` from run-path inspection. |
 
-For training, the notebook's Drive ZIP and working paths must point to the available data. The chosen experiment's fold YAML files determine its train/validation split. [Training settings and result selection](experiments.md) describe both protocols.
+Use the generated fold YAMLs when running the training cells. The separate local training helper uses 640 px inputs. The published fold scores come from the notebook’s 1024 px runs. [Training settings and result selection](experiments.md).
 
 ## Rebuild the figures
 
-From the repository root, with Matplotlib, NumPy and Pillow installed:
+With Matplotlib, NumPy and Pillow installed, run the following from the repository root.
 
 ```bash
 python scripts/documentation/research_figures.py
 ```
 
-The script reads the saved model summary, fold metrics, class counts and image annotations to build the four SVG figures. [Figure sources](../assets/README.md).
+The script extracts the 24-row module table from cell 37. It then writes the five SVG figures and the two JPEG previews from the fold metrics, class counts, expert polygons and report collage. This step uses the saved results and does not require training weights. [Figure sources](../assets/README.md).

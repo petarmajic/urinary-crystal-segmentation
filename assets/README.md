@@ -1,13 +1,14 @@
 # Figure sources
 
-The figures use the model summary, fold results, class counts and source images listed below.
+The two images at the top of the README show the same weddellite field, `C2_taill_heter_lb.jpg`. To make the expert panel, I drew all seven polygons from the field’s label file. For the prediction panel, I cropped row 2, column 3 of the report collage (pixel bounds `1280, 448, 1920, 896`). The neighbouring panel’s green label text crosses the left edge in the original collage. The report does not name the checkpoint. [Expert annotation](weddellite-expert.jpg) · [Prediction](weddellite-prediction.jpg) · [Uncropped collage](validation-predictions.jpg).
 
 | Figure | Data or source |
 | --- | --- |
-| `fold-validation.svg` | Five mask mAP50–95 values from cell 38, with their mean and sample SD. |
-| `class-support.svg` | Image and annotated-instance counts from cell 35. |
-| `workflow.svg` | Preparation code and saved YOLO11m-seg module summary, cell 37; architecture mechanics checked against Ultralytics 8.4.14. Volumes and fold cells are schematic. |
-| `annotation-example.svg` | `C2_taill_heter_lb.jpg` and all seven polygons from its matching label file. Source ID 15 maps to ID 4 in the prepared dataset. |
+| [Fold chart](mask-validation-folds.svg) | Five mask mAP50–95 values and selected epochs from cell 38. The line marks their mean and the shaded band shows one sample SD. |
+| [Class counts](class-support.svg) | Image and annotated-instance counts from cell 35. |
+| [Instance mask head](instance-mask-head.svg) | The three fused outputs and mask branches from the cell 37 model. Shapes assume 1024 × 1024 input. |
+| [Architecture and preparation](workflow.svg) | Preparation code and saved YOLO11m-seg module summary, cell 37; architecture mechanics checked against Ultralytics 8.4.14. Volumes and fold cells are schematic. |
+| [Expert polygons](annotation-example.svg) | `C2_taill_heter_lb.jpg` and all seven polygons from its matching label file. Source ID 15 maps to ID 4 in the prepared dataset. |
 | `source/microscopy-example.jpg` | Embedded microscopy image from the original project poster, used to illustrate the input collection. |
 
 The plotted values are available in [fold metrics](../results/recorded-fold-metrics.csv), [class support](../metadata/derived/drop4-class-support.csv) and the [module summary](../results/yolo11m-layer-summary.csv).

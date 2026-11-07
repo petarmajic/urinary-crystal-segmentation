@@ -2,7 +2,7 @@
 
 [Open PRI_train.ipynb](PRI_train.ipynb)
 
-The Colab notebook follows the work from image and label preparation to model training and fold evaluation. The table gives the position of each section in the notebook.
+I used this Colab notebook to match images to polygon files, prepare the two datasets and train a fresh model for each fold. To inspect the 15-class experiment, start with the counts in cell 35, the split sizes in cell 36 and the results in cell 38. Cell numbers in these guides start at zero.
 
 | Cells | Contents |
 | --- | --- |
@@ -17,4 +17,4 @@ The Colab notebook follows the work from image and label preparation to model tr
 
 [Environment and execution](../docs/reproducibility.md) · [Experiment settings and results](../docs/experiments.md)
 
-`archive/PRI_training_script.ipynb` is the identical copy included in the original deliverables.
+The [archived notebook](archive/PRI_training_script.ipynb) is the identical copy included in the original deliverables.

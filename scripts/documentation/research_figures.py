@@ -132,20 +132,57 @@ def method():
     t(ax,25,695,'Tensor labels: H × W × C. The architecture is provided by Ultralytics; volumes and fold cells are schematic.',11.5,ha='left',color=MUTED)
     save(fig,'workflow')
 
+def mask_head():
+    """Show which features are shared and which values belong to one detection."""
+    fig, ax = plt.subplots(figsize=(9, 2.55))
+    fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+    ax.set(xlim=(0, 900), ylim=(255, 0))
+    ax.axis('off')
+    # Inputs and outputs share feature maps; only P3 feeds the prototype branch.
+    for y, name, shape in [(64, 'P3', '128 × 128 × 256'),
+                           (120, 'P4', '64 × 64 × 512'),
+                           (176, 'P5', '32 × 32 × 512')]:
+        t(ax, 24, y, name, 14, ha='left', weight='bold')
+        t(ax, 70, y, shape, 13, ha='left', color=MUTED)
+        ax.plot([222, 252], [y, y], color=MUTED, linewidth=1)
+    ax.plot([252, 252], [64, 176], color=MUTED, linewidth=1)
+    arrow(ax, [(252, 147), (305, 147)], color=MUTED)
+    arrow(ax, [(222, 64), (305, 64)], color=TEAL)
+    t(ax, 24, 24, 'Fused features', 15, ha='left', weight='bold')
+    box(ax, 312, 36, 242, 55, 'Shared prototype maps\n32 maps at 256 × 256', fill='#edf5f0', size=13)
+    box(ax, 312, 113, 242, 72, 'Per detection\nBox, class scores and\n32 mask coefficients', size=13)
+    arrow(ax, [(555, 64), (608, 64), (608, 100), (649, 100)], color=TEAL)
+    arrow(ax, [(555, 147), (608, 147), (608, 122), (649, 122)], color=MUTED)
+    box(ax, 656, 74, 220, 75, 'Weight the prototypes\nCrop and resize the mask', fill='#edf3f8', size=13)
+    t(ax, 766, 180, 'One mask per instance', 14, weight='bold')
+    t(ax, 24, 227, 'YOLO11m-seg   ·   1024 px input   ·   height × width × channels', 12,
+      ha='left', color=MUTED)
+    save(fig, 'instance-mask-head')
+
+
 def fold_chart():
     with (ROOT/'results/recorded-fold-metrics.csv').open() as f:
         rows=[r for r in csv.DictReader(f) if r['experiment']=='yolo11m_drop4_15_classes']
     vals=np.array([float(r['mask_map50_95']) for r in rows]);mean=vals.mean();sd=vals.std(ddof=1)
     assert len(vals)==5 and abs(mean-.4874)<.0001 and abs(sd-.0453)<.0001
-    fig,ax=plt.subplots(figsize=(10,3.0));fig.subplots_adjust(left=.09,right=.975,bottom=.21,top=.90)
-    ax.axhspan(mean-sd,mean+sd,color=TEAL,alpha=.08)
-    ax.axhline(mean,color=TEAL,lw=1.3,label=f'Mean {mean:.4f} ± {sd:.4f} SD')
-    ax.scatter(range(1,6),vals,color=BLUE,s=46,zorder=3)
-    for i,v in enumerate(vals,1):ax.annotate(f'{v:.3f}',(i,v),xytext=(0,9),textcoords='offset points',ha='center',fontsize=12)
-    ax.set(xlim=(.6,5.4),ylim=(.35,.62),xticks=range(1,6),xticklabels=[f'Fold {i}' for i in range(1,6)],ylabel='Mask mAP50–95')
-    ax.spines[['top','right','bottom']].set_visible(False);ax.grid(axis='y',color='#e7edf1',lw=.7);ax.set_axisbelow(True)
-    ax.legend(frameon=False,loc='lower right',fontsize=11)
-    save(fig,'fold-validation')
+    fig, ax = plt.subplots(figsize=(8, 2.9))
+    fig.subplots_adjust(left=.105, right=.97, bottom=.23, top=.83)
+    ax.set_title('Validation mask mAP50–95', loc='left', fontsize=16, weight='bold')
+    ax.axhspan(mean-sd, mean+sd, color=TEAL, alpha=.10)
+    ax.axhline(mean, color=TEAL, lw=1.4)
+    ax.scatter(range(1, 6), vals, color=BLUE, s=48, zorder=3)
+    for fold, score in enumerate(vals, start=1):
+        ax.annotate(f'{score:.4f}', (fold, score), xytext=(0, 9),
+                    textcoords='offset points', ha='center', fontsize=12)
+    ax.text(1, 1.05, f'Mean {mean:.4f}   ·   SD {sd:.4f}',
+            transform=ax.transAxes, ha='right', color=TEAL, fontsize=12)
+    ticks = [f"Fold {i}\nEpoch {row['epoch']}" for i, row in enumerate(rows, start=1)]
+    ax.set(xlim=(.55, 5.45), ylim=(.37, .59), xticks=range(1, 6), xticklabels=ticks)
+    ax.spines[['top','right','bottom']].set_visible(False)
+    ax.tick_params(axis='x', length=0, pad=8)
+    ax.grid(axis='y', color='#e7edf1', lw=.7)
+    ax.set_axisbelow(True)
+    save(fig,'mask-validation-folds')
 
 def support_chart():
     with (ROOT/'metadata/derived/drop4-class-support.csv').open() as f:rows=list(csv.DictReader(f))
@@ -181,6 +218,27 @@ def annotation_example():
         axes[1].add_patch(Polygon(xy,closed=True,fill=False,edgecolor='#e9fff5',lw=1.1))
     save(fig,'annotation-example')
 
+    with Image.open(A/'validation-predictions.jpg') as report:
+        # Figure 6.3 is a 3-column collage. Row 2, column 3 is the same C2 field.
+        assert report.size == (1920, 1341)
+        prediction = report.crop((1280, 448, 1920, 896))
+    preview_panel(im, 'Expert annotation', 'Seven C2 polygons', 'weddellite-expert', polygons)
+    preview_panel(prediction, 'Model prediction', 'Report figure 6.3', 'weddellite-prediction')
+
+
+def preview_panel(image, title, subtitle, filename, polygons=()):
+    fig = plt.figure(figsize=(4.8, 3.9))
+    fig.text(.025, .925, title, fontsize=16, weight='bold', fontfamily='DejaVu Sans')
+    fig.text(.025, .855, subtitle, fontsize=12, color=MUTED, fontfamily='DejaVu Sans')
+    ax = fig.add_axes([.025, .025, .95, .78])
+    ax.imshow(image)
+    for xy in polygons:
+        ax.add_patch(Polygon(xy, closed=True, facecolor='#23b897', alpha=.25, lw=0))
+        ax.add_patch(Polygon(xy, closed=True, fill=False, edgecolor='#effff9', lw=1.2))
+    ax.axis('off')
+    fig.savefig(A/f'{filename}.jpg', dpi=175, pil_kwargs={'quality': 93})
+    plt.close(fig)
+
 if __name__=='__main__':
-    model_evidence();method();fold_chart();support_chart();annotation_example()
-    print('Extracted model summary; generated four research figures from saved evidence.')
+    model_evidence();method();mask_head();fold_chart();support_chart();annotation_example()
+    print('Extracted model summary; generated five figures and two microscopy previews.')

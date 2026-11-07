@@ -1,5 +1,7 @@
 # Report and presentation materials
 
+The report contains the full method and experiments. The poster and its 2:17 recorded presentation give a shorter introduction to the microscopy problem.
+
 | Material | Format | Contents |
 | --- | --- | --- |
 | [Technical report](reports/project-report.pdf) | 24 pages | Data review, annotation preparation, training and evaluation |
@@ -15,7 +17,7 @@
 
 **Report Figure 6.3, PDF page 23.** Predicted instance masks, class labels and confidence scores across several microscopy fields. The figure does not identify the model, fold or checkpoint, so it cannot be linked to a specific row in the metric table.
 
-The README's microscopy/polygon pair shows expert annotations. The collage above shows model predictions.
+The [README](../README.md#one-microscopy-field) pairs the weddellite field from row 2, column 3 of this collage with the seven expert polygons for the same field. The confidence values come from the printed predictions. The green text at the left edge belongs to the adjacent panel in the source collage.
 
 ## Defence overview
 
@@ -27,11 +29,11 @@ The README's microscopy/polygon pair shows expert annotations. The collage above
 | 12–15 | Label filtering, images per class and fold preparation |
 | 16–20 | Training calls, confusion matrices and result summaries |
 
-Slide 15 describes the earlier 607-image, 19-class dataset. The main README reports the later 583-image, 15-class experiment. Both are documented in [experiments](experiments.md).
+Slide 15 describes the earlier dataset of 607 images and 19 classes. The later experiment used 583 images and 15 classes. [Protocols for both experiments](experiments.md#protocols).
 
 ## Earlier planning slides
 
-The planning slides include an external YOLOv9 workflow reference and possible augmentation choices. The implemented experiments use YOLO11n-seg and YOLO11m-seg. The early split slides also contain a validation-size typo: the source `val_split.txt` has **123 entries**, consistent with 613 labeled images minus 490 training images.
+The planning slides include an external YOLOv9 workflow reference and possible augmentation choices. The implemented experiments use YOLO11n-seg and YOLO11m-seg. The early split slides contain a validation-size typo. The original `val_split.txt` has **123 entries**, which accounts for the remaining images after 490 of the 613 labelled images went into training.
 
 ## Confusion matrices
 

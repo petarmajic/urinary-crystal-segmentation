@@ -1,11 +1,13 @@
 # Image data and annotation export
 
+I worked from two copies of the collection. The raw directory retains the hospital’s filenames. The CVAT export pairs microscopy images with polygon label files for training.
+
 | Location | Contents |
 | --- | --- |
 | [Original image collection](raw/) | Original microscopy collection, retaining species folders and original image names |
 | [CVAT annotation export](annotated/) | CVAT/Ultralytics export, retaining its internal images/labels hierarchy, YAML and split files |
 
-The collection is in `raw/`, and the annotation export is in `annotated/`. The export YAML uses `path: .`, relative to the dataset directory.
+The export YAML uses `path: .`, relative to the dataset directory.
 
 ## Existing split files
 
@@ -16,12 +18,12 @@ The collection is in `raw/`, and the annotation export is in `annotated/`. The e
 | [val_split.txt](annotated/val_split.txt) | 123 | Earlier random validation subset |
 | [test_split.txt](annotated/test_split.txt) | 46 | Unannotated images, despite the historical filename |
 
-These lists describe the earlier random split. The notebook later creates five folds for `dataset_clean` and `dataset_clean_drop4`. The generated datasets, fold YAML files, run CSVs and trained checkpoints are not included as separate files, but the preparation code and training outputs are in the [notebook](../notebooks/PRI_train.ipynb).
+I used the random split early in the project. For the two recorded experiments I generated five folds for `dataset_clean` and `dataset_clean_drop4`. The [notebook](../notebooks/PRI_train.ipynb) contains the preparation code and saved training outputs. To rerun training you need to recreate the clean datasets and fold YAML files. Per-epoch run CSVs and trained checkpoints are absent from this repository.
 
 ## Image and label paths
 
-The current export contains **659 image files and 612 nonempty polygon-label files**, with no repeated exact image stems. Every entry in `train.txt` resolves against the source tree. The early split lists have Unicode normalisation differences in accented names: **130 training paths, 36 validation paths and 7 unannotated paths** use a different Unicode representation from the source filenames. All resolve after NFC normalisation. The split files retain their original encoding.
+The current export contains **659 image files and 612 nonempty polygon-label files**, with no repeated exact image stems. Every entry in `train.txt` resolves against the source tree. The early split lists have Unicode normalisation differences in accented names: **130 training paths, 36 validation paths and 7 unannotated paths** use a different Unicode representation from the source filenames. All resolve after NFC normalisation. When looking up a file from these lists, compare the list entry and the filename after Unicode NFC normalisation.
 
 After NFC normalisation, the early train and validation lists have no overlapping paths or identical image files. This check applies to those two lists. Different crops or lighting views of the same specimen can still be related, and the later notebook folds use their own split.
 
-The dataset was supplied through the hospital collaboration. A general redistribution licence is not included.
+The dataset was supplied through the hospital collaboration. The repository includes no general redistribution licence for these images.

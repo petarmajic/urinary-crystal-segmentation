@@ -1,5 +1,7 @@
 # Metadata and code mappings
 
+I used the hospital’s species codes and abbreviations to index the image collection. This made it possible to find likely mixtures and lighting conditions while reviewing the images. The expert polygons supplied the training labels.
+
 | File | Role |
 | --- | --- |
 | [image_metadata.csv](image_metadata.csv) | 659 image records produced during the dataset review |
@@ -20,8 +22,8 @@
 | `ph` | Value extracted from a pH pattern when available |
 | `notes` | How a species value was inferred, or that none was found |
 
-There are **581 rows marked `No` and 78 marked `Yes`** in the mixture field. Only **65 rows** contain a pH value. The parser assigns these fields from the filename and folder name. For example, `No` means that it did not find a second species code, rather than confirming that only one species is present.
+Across 659 records, the mixture field contains **581 `No` values and 78 `Yes` values**. A `No` means it found fewer than two species codes. The image itself can still contain multiple species. Only **65 rows** have a pH value.
 
-The script preserves useful clues from inconsistent source names, including tokens for polarised light and mixtures. It also records folder-based fallbacks. The [French coding guide](../docs/domain-notes/crystal-coding-guide-fr.docx) explains the original terminology.
+When the parser finds no species in the filename, it tries the folder name and records that fallback in `notes`. The [French coding guide](../docs/domain-notes/crystal-coding-guide-fr.docx) explains the original terminology.
 
-`rel_path` retains the old `RawData/SÇlection cristaux Hennet` prefix. The corresponding source collection is now in [`data/raw/`](../data/raw/). This is a historical metadata field. Decimal pH parsing has a known issue described in [execution notes](../docs/reproducibility.md#known-issues).
+`rel_path` retains the old `RawData/SÇlection cristaux Hennet` prefix. The corresponding source collection is now in [`data/raw/`](../data/raw/). The pH parser can store `pH8.5` as `8`, so check the original filename before reusing decimal pH values. [Execution notes](../docs/reproducibility.md#known-issues).

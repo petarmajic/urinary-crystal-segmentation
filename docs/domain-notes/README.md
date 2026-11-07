@@ -1,6 +1,6 @@
 # Domain reference notes
 
-The French documents provide the source terminology and dataset discussion. The Croatian documents are working translations.
+I used the French coding guide to interpret tokens in the image filenames and the dataset review to understand mixtures and related views. The Croatian files are working translations.
 
 | Document | Contents |
 | --- | --- |
@@ -9,4 +9,4 @@ The French documents provide the source terminology and dataset discussion. The 
 | [Coding notes, Croatian](crystal-coding-notes-hr.docx) | Working terminology reference |
 | [Dataset notes, Croatian](dataset-organisation-notes-hr.docx) | Working translation of the dataset discussion |
 
-The coding notes support filename metadata extraction. Expert polygon annotations provide the training labels.
+For a filename field such as `mixture`, see the [metadata parser and its fields](../../metadata/README.md). For the outline of an individual crystal, see the [CVAT annotation example](../data.md#annotation-example).
