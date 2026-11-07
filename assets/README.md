@@ -6,7 +6,7 @@ The two images at the top of the README show the same weddellite field, `C2_tail
 | --- | --- |
 | [Image splits and validation folds](validation-fold-layout.svg) | Counts from the three original split lists, train/validation sizes from notebook cell 36 and selected epochs with their mask scores from cell 38. Each highlighted group is held out once. |
 | [Class counts](class-support.svg) | Image and annotated-instance counts from cell 35. |
-| [Instance mask head](mask-prototype-branches.svg) | The three fused outputs and mask branches from the cell 37 model. Shapes assume 1024 × 1024 input. |
+| [Single-crystal mask](single-crystal-mask.svg) | The circle marks the lower C2 crystal in the original field. The enlarged mask is a crop of report Figure 6.3 (pixel bounds `1606, 816, 1701, 880`). The intermediate labels describe the recorded YOLO11m-seg head. |
 | [Architecture and preparation](workflow.svg) | Preparation code and saved YOLO11m-seg module summary, cell 37; architecture mechanics checked against Ultralytics 8.4.14. Volumes and fold cells are schematic. |
 | [Expert polygons](annotation-example.svg) | `C2_taill_heter_lb.jpg` and all seven polygons from its matching label file. Source ID 15 maps to ID 4 in the prepared dataset. |
 | `source/microscopy-example.jpg` | Embedded microscopy image from the original project poster, used to illustrate the input collection. |

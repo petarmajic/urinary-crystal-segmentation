@@ -45,11 +45,13 @@ I used classes present in at least five labelled images for the first experiment
 
 ## How the model predicts a mask
 
-YOLO11m-seg uses three feature scales to predict boxes and class scores. It also learns 32 shared mask patterns for the field. Each detection has its own set of 32 coefficients, so two crystals of the same class can have different outlines. [Full architecture and tensor dimensions](docs/architecture.md).
+How does the model outline the small weddellite crystal near the bottom of this field? At the 1024 px input size used here, YOLO11m-seg computes 32 maps for the whole image, called *mask prototypes*. For each crystal it detects, it predicts a bounding box and 32 weights, one per map.
 
-![Three fused feature scales feed the detection head. P3 also feeds the prototype branch. Each detection combines the shared prototypes with its own coefficients to form a mask.](assets/mask-prototype-branches.svg)
+![A circled weddellite crystal in the input field, the maps shared across the field, and the weights specific to that detection. The enlarged report crop shows the mask on the same crystal.](assets/single-crystal-mask.svg)
 
-**Figure 2.** YOLO11m-seg combines shared mask prototypes with coefficients predicted for each detection to form an instance mask.
+**Figure 2.** The circle marks one crystal in the original field. In the enlarged crop from report Figure 6.3, the shaded pixels show the predicted mask and the rectangle shows the detection box.
+
+At each pixel, the model multiplies the 32 prototype values by the crystal’s weights and adds them to get a mask score. It crops the result to the predicted box and resizes it to the image. A neighbouring crystal uses the same maps with its own weights, so it can have a different outline. [Feature scales and tensor dimensions](docs/architecture.md#feature-extraction-and-fusion).
 
 ## Training and validation
 

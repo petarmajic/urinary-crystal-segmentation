@@ -2,7 +2,9 @@
 
 No training, inference or annotation changes. The model drawing is schematic.
 """
+import base64
 import csv
+from io import BytesIO
 import json
 from pathlib import Path
 import re
@@ -181,43 +183,56 @@ def write_diagram(svg, name):
     (A / name).write_text(ET.tostring(svg, encoding='unicode') + '\n', encoding='utf-8')
 
 
+def microscopy_tile(svg, image, x, y, width, height):
+    buffer = BytesIO()
+    image.save(buffer, format='JPEG', quality=92)
+    encoded = base64.b64encode(buffer.getvalue()).decode('ascii')
+    ET.SubElement(svg, 'image', x=str(x), y=str(y), width=str(width), height=str(height),
+                  href=f'data:image/jpeg;base64,{encoded}')
+
+
 def mask_head():
-    svg = diagram(250, 'From fused features to one instance mask',
-                  'All three scales feed the detection branch. P3 also provides shared mask prototypes. '
-                  'Each detection weights these prototypes using its mask coefficients.')
+    svg = diagram(236, 'How YOLO11m-seg outlines a single crystal',
+                  'The marked crystal in the input field corresponds to the enlarged prediction on the right. '
+                  'YOLO11m-seg combines 32 prototype maps shared across the image using 32 weights for one detection.')
     marker = ET.SubElement(ET.SubElement(svg, 'defs'), 'marker', {
         'id': 'arrow', 'viewBox': '0 0 8 8', 'refX': '7', 'refY': '4',
         'markerWidth': '6', 'markerHeight': '6', 'orient': 'auto',
     })
     ET.SubElement(marker, 'path', d='M1 1L7 4L1 7', fill='none', stroke=FIG_RULE)
 
-    label(svg, 16, 33, 'Fused features', 18, bold=True)
-    for y, name, shape in [(71, 'P3', '128 × 128 × 256'),
-                           (119, 'P4', '64 × 64 × 512'), (167, 'P5', '32 × 32 × 512')]:
-        label(svg, 16, y+5, name, 16, bold=True, color=FIG_BLUE)
-        label(svg, 52, y+5, shape, 15, color=FIG_MUTED)
-    connector(svg, 'M174 68H227', arrowhead=True)  # P3 alone supplies the prototypes.
-    connector(svg, 'M174 77H182Q188 77 188 83V167')
-    for y in (119, 167):
-        connector(svg, f'M174 {y}H188')
-    connector(svg, 'M188 162H227', arrowhead=True)
+    label(svg, 16, 32, 'Microscopy field', 18, bold=True)
+    source = ROOT / 'data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/C2_taill_heter_lb.jpg'
+    with Image.open(source) as field:
+        field.thumbnail((390, 265))
+        microscopy_tile(svg, field, 16, 64, 192, 130)
+    # Visual locator on the source field, not a model-generated detection box.
+    ET.SubElement(svg, 'circle', cx='129', cy='178', r='13', fill='none',
+                  stroke='white', attrib={'stroke-width': '4'})
+    ET.SubElement(svg, 'circle', cx='129', cy='178', r='13', fill='none',
+                  stroke=FIG_BLUE, attrib={'stroke-width': '2'})
+    label(svg, 16, 219, 'Circled crystal: weddellite', 14, color=FIG_MUTED)
 
-    rect(svg, 235, 40, 237, 66, '#f0f5fb', radius=9)
-    label(svg, 249, 65, 'Shared prototypes', 17, bold=True)
-    label(svg, 249, 89, '32 maps at 256 × 256', color=FIG_MUTED)
-    rect(svg, 235, 121, 237, 80, '#f0f5fb', radius=9)
-    label(svg, 249, 146, 'Per detection', 17, bold=True)
-    label(svg, 249, 169, 'Box, class scores and', color=FIG_MUTED)
-    label(svg, 249, 189, '32 mask coefficients', color=FIG_MUTED)
-    connector(svg, 'M476 71H507Q513 71 513 77V97Q513 103 519 103H545', arrowhead=True)
-    connector(svg, 'M476 162H507Q513 162 513 156V135Q513 129 519 129H545', arrowhead=True)
+    connector(svg, 'M211 111H225Q230 111 230 106V79Q230 74 235 74H248', arrowhead=True)
+    connector(svg, 'M211 135H225Q230 135 230 140V170Q230 175 235 175H248', arrowhead=True)
+    rect(svg, 256, 39, 255, 73, '#f0f5fb', radius=9)
+    label(svg, 270, 67, 'Once per image', 17, bold=True)
+    label(svg, 270, 93, '32 prototype maps at 256 × 256', 15, color=FIG_MUTED)
+    rect(svg, 256, 139, 255, 73, '#f0f5fb', radius=9)
+    label(svg, 270, 167, 'For the circled crystal', 17, bold=True)
+    label(svg, 270, 193, 'A box and 32 mask weights', 15, color=FIG_MUTED)
 
-    rect(svg, 553, 77, 235, 86, '#eef7f3', radius=9)
-    label(svg, 568, 103, 'One mask per instance', 17, bold=True, color=FIG_VAL_INK)
-    label(svg, 568, 128, 'Weight the prototypes,', color=FIG_MUTED)
-    label(svg, 568, 149, 'then crop and resize.', color=FIG_MUTED)
-    label(svg, 16, 232, 'YOLO11m-seg   ·   1024 px input   ·   height × width × channels', 14, color=FIG_MUTED)
-    write_diagram(svg, 'mask-prototype-branches.svg')
+    connector(svg, 'M515 75H531Q536 75 536 80V115Q536 120 541 120H559', arrowhead=True)
+    connector(svg, 'M515 175H531Q536 175 536 170V136Q536 131 541 131H559', arrowhead=True)
+    rect(svg, 567, 39, 217, 173, '#eef7f3', radius=9)
+    label(svg, 581, 65, 'One instance mask', 17, color=FIG_VAL_INK, bold=True)
+    with Image.open(A/'validation-predictions.jpg') as report:
+        # The lower crystal in report Figure 6.3, row 2, column 3.
+        zoom = report.crop((1606, 816, 1701, 880))
+        microscopy_tile(svg, zoom, 581, 81, 108, 73)
+    label(svg, 581, 177, 'Combine the maps, then', 15, color=FIG_MUTED)
+    label(svg, 581, 197, 'crop to the predicted box.', 15, color=FIG_MUTED)
+    write_diagram(svg, 'single-crystal-mask.svg')
 
 
 def split_figure():
