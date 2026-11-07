@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="250" viewBox="0 0 800 250" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" fill="#1d324b">
+  <title id="title">From fused features to one instance mask</title>
+  <desc id="desc">All three scales feed the detection branch. P3 also provides shared mask prototypes. Each detection weights these prototypes using its mask coefficients.</desc>
+  <rect x="0" y="0" width="800" height="250" rx="0" fill="white" stroke="none" />
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1L7 4L1 7" fill="none" stroke="#8499af" />
+    </marker>
+  </defs>
+  <text x="16" y="33" font-size="18" font-weight="600" fill="#1d324b" text-anchor="start">Fused features</text>
+  <text x="16" y="76" font-size="16" font-weight="600" fill="#295e9e" text-anchor="start">P3</text>
+  <text x="52" y="76" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">128 × 128 × 256</text>
+  <text x="16" y="124" font-size="16" font-weight="600" fill="#295e9e" text-anchor="start">P4</text>
+  <text x="52" y="124" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">64 × 64 × 512</text>
+  <text x="16" y="172" font-size="16" font-weight="600" fill="#295e9e" text-anchor="start">P5</text>
+  <text x="52" y="172" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">32 × 32 × 512</text>
+  <path d="M174 68H227" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+  <path d="M174 77H182Q188 77 188 83V167" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M174 119H188" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M174 167H188" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M188 162H227" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+  <rect x="235" y="40" width="237" height="66" rx="9" fill="#f0f5fb" stroke="none" />
+  <text x="249" y="65" font-size="17" font-weight="600" fill="#1d324b" text-anchor="start">Shared prototypes</text>
+  <text x="249" y="89" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">32 maps at 256 × 256</text>
+  <rect x="235" y="121" width="237" height="80" rx="9" fill="#f0f5fb" stroke="none" />
+  <text x="249" y="146" font-size="17" font-weight="600" fill="#1d324b" text-anchor="start">Per detection</text>
+  <text x="249" y="169" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">Box, class scores and</text>
+  <text x="249" y="189" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">32 mask coefficients</text>
+  <path d="M476 71H507Q513 71 513 77V97Q513 103 519 103H545" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+  <path d="M476 162H507Q513 162 513 156V135Q513 129 519 129H545" stroke="#8499af" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+  <rect x="553" y="77" width="235" height="86" rx="9" fill="#eef7f3" stroke="none" />
+  <text x="568" y="103" font-size="17" font-weight="600" fill="#196551" text-anchor="start">One mask per instance</text>
+  <text x="568" y="128" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">Weight the prototypes,</text>
+  <text x="568" y="149" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">then crop and resize.</text>
+  <text x="16" y="232" font-size="14" font-weight="400" fill="#4b627b" text-anchor="start">YOLO11m-seg   ·   1024 px input   ·   height × width × channels</text>
+</svg>

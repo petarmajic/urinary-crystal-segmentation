@@ -47,7 +47,7 @@ I used classes present in at least five labelled images for the first experiment
 
 YOLO11m-seg uses three feature scales to predict boxes and class scores. It also learns 32 shared mask patterns for the field. Each detection has its own set of 32 coefficients, so two crystals of the same class can have different outlines. [Full architecture and tensor dimensions](docs/architecture.md).
 
-![Three fused feature scales feed the detection head. P3 also feeds the prototype branch. Each detection combines the shared prototypes with its own coefficients to form a mask.](assets/instance-mask-head.svg)
+![Three fused feature scales feed the detection head. P3 also feeds the prototype branch. Each detection combines the shared prototypes with its own coefficients to form a mask.](assets/mask-prototype-branches.svg)
 
 **Figure 2.** YOLO11m-seg combines shared mask prototypes with coefficients predicted for each detection to form an instance mask.
 
@@ -55,9 +55,9 @@ YOLO11m-seg uses three feature scales to predict boxes and class scores. It also
 
 I initially split the 613 annotated images into 490 for training and 123 for validation. The other 46 source images had no annotations. For the 15-class experiment, I built new folds from all 583 retained images. Each field could contain several classes, so I stratified the folds using a binary vector of class presence for each image.
 
-![Initial split of 659 images and five-fold validation on 583 retained images. Each row shows its held-out count, training count, best epoch and validation mask score.](assets/fold-assignments-and-scores.svg)
+![Initial split of 659 images and five-fold validation on 583 retained images. Each row shows its held-out count, training count, best epoch and validation mask score.](assets/validation-fold-layout.svg)
 
-**Figure 3.** (a) Initial split of the source collection. (b) Each green block gives the number of held-out images in one fold. The score comes from the epoch with the highest validation mask mAP50–95 in that fold.
+**Figure 3.** (a) Initial split of the source collection. (b) Each highlighted block gives the number of held-out images in one fold. The score comes from the epoch with the highest validation mask mAP50–95 in that fold.
 
 I trained a fresh model on four groups per fold, starting from the same pretrained weights. Each image was held out exactly once. [Fold sizes and split settings](docs/data.md#trainvalidation-strategy) · [Notebook guide](notebooks/README.md).
 

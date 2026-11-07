@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="384" viewBox="0 0 800 384" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif" fill="#1d324b">
+  <title id="title">Image splits and five-fold cross-validation</title>
+  <desc id="desc">The first panel divides the original collection by use. In the second panel, each highlighted group is held out once. Scores are from each fold’s best epoch.</desc>
+  <rect x="0" y="0" width="800" height="384" rx="0" fill="white" stroke="none" />
+  <text x="16" y="28" font-size="19" font-weight="600" fill="#1d324b" text-anchor="start">(a) Initial image split</text>
+  <text x="784" y="28" font-size="15" font-weight="400" fill="#4b627b" text-anchor="end">659 source images</text>
+  <rect x="16" y="47" width="570.0470409711685" height="17" rx="0" fill="#e5edf7" stroke="none" />
+  <rect x="587.0470409711685" y="47" width="142.3444613050076" height="17" rx="0" fill="#cae6dc" stroke="none" />
+  <rect x="730.3915022761761" y="47" width="52.60849772382397" height="17" rx="0" fill="#d6d9de" stroke="none" />
+  <rect x="16" y="82" width="12" height="12" rx="3" fill="#e5edf7" stroke="none" />
+  <text x="36" y="93" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">490 training</text>
+  <rect x="283" y="82" width="12" height="12" rx="3" fill="#cae6dc" stroke="none" />
+  <text x="303" y="93" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">123 validation</text>
+  <rect x="557" y="82" width="12" height="12" rx="3" fill="#d6d9de" stroke="none" />
+  <text x="577" y="93" font-size="15" font-weight="400" fill="#4b627b" text-anchor="start">46 unannotated</text>
+  <rect x="16" y="115" width="768" height="1" rx="0" fill="#d6e0ea" stroke="none" />
+  <text x="16" y="146" font-size="19" font-weight="600" fill="#1d324b" text-anchor="start">(b) Five-fold cross-validation</text>
+  <text x="784" y="146" font-size="15" font-weight="400" fill="#4b627b" text-anchor="end">583 prepared images</text>
+  <text x="16" y="171" font-size="14" font-weight="400" fill="#4b627b" text-anchor="start">YOLO11m-seg   ·   15 classes   ·   multilabel stratification by image</text>
+  <text x="91" y="204" font-size="14" font-weight="600" fill="#1d324b" text-anchor="start">Held-out images</text>
+  <text x="444" y="204" font-size="14" font-weight="600" fill="#1d324b" text-anchor="middle">Training images</text>
+  <text x="570" y="204" font-size="14" font-weight="600" fill="#1d324b" text-anchor="middle">Best epoch</text>
+  <text x="711" y="204" font-size="14" font-weight="600" fill="#1d324b" text-anchor="middle">Mask mAP50–95</text>
+  <text x="16" y="238" font-size="15" font-weight="600" fill="#1d324b" text-anchor="start">Fold 1</text>
+  <rect x="91" y="222" width="50.96912521440823" height="22" rx="4" fill="#cae6dc" stroke="#78ab98" />
+  <text x="116.48456260720411" y="238" font-size="14" font-weight="600" fill="#196551" text-anchor="middle">114</text>
+  <rect x="144.96912521440822" y="222" width="53.80960548885077" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="201.778730703259" y="222" width="52.3893653516295" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="257.1680960548885" y="222" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="312.0840480274443" y="222" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <text x="444" y="238" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">469</text>
+  <text x="570" y="238" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">74</text>
+  <text x="711" y="238" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">0.54213</text>
+  <text x="16" y="270" font-size="15" font-weight="600" fill="#1d324b" text-anchor="start">Fold 2</text>
+  <rect x="91" y="254" width="50.96912521440823" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="144.96912521440822" y="254" width="53.80960548885077" height="22" rx="4" fill="#cae6dc" stroke="#78ab98" />
+  <text x="171.8739279588336" y="270" font-size="14" font-weight="600" fill="#196551" text-anchor="middle">120</text>
+  <rect x="201.778730703259" y="254" width="52.3893653516295" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="257.1680960548885" y="254" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="312.0840480274443" y="254" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <text x="444" y="270" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">463</text>
+  <text x="570" y="270" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">86</text>
+  <text x="711" y="270" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">0.43539</text>
+  <text x="16" y="302" font-size="15" font-weight="600" fill="#1d324b" text-anchor="start">Fold 3</text>
+  <rect x="91" y="286" width="50.96912521440823" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="144.96912521440822" y="286" width="53.80960548885077" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="201.778730703259" y="286" width="52.3893653516295" height="22" rx="4" fill="#cae6dc" stroke="#78ab98" />
+  <text x="227.97341337907375" y="302" font-size="14" font-weight="600" fill="#196551" text-anchor="middle">117</text>
+  <rect x="257.1680960548885" y="286" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="312.0840480274443" y="286" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <text x="444" y="302" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">466</text>
+  <text x="570" y="302" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">96</text>
+  <text x="711" y="302" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">0.50307</text>
+  <text x="16" y="334" font-size="15" font-weight="600" fill="#1d324b" text-anchor="start">Fold 4</text>
+  <rect x="91" y="318" width="50.96912521440823" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="144.96912521440822" y="318" width="53.80960548885077" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="201.778730703259" y="318" width="52.3893653516295" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="257.1680960548885" y="318" width="51.915951972555746" height="22" rx="4" fill="#cae6dc" stroke="#78ab98" />
+  <text x="283.12607204116637" y="334" font-size="14" font-weight="600" fill="#196551" text-anchor="middle">116</text>
+  <rect x="312.0840480274443" y="318" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <text x="444" y="334" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">467</text>
+  <text x="570" y="334" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">86</text>
+  <text x="711" y="334" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">0.51075</text>
+  <text x="16" y="366" font-size="15" font-weight="600" fill="#1d324b" text-anchor="start">Fold 5</text>
+  <rect x="91" y="350" width="50.96912521440823" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="144.96912521440822" y="350" width="53.80960548885077" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="201.778730703259" y="350" width="52.3893653516295" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="257.1680960548885" y="350" width="51.915951972555746" height="22" rx="4" fill="#e5edf7" stroke="none" />
+  <rect x="312.0840480274443" y="350" width="51.915951972555746" height="22" rx="4" fill="#cae6dc" stroke="#78ab98" />
+  <text x="338.04202401372214" y="366" font-size="14" font-weight="600" fill="#196551" text-anchor="middle">116</text>
+  <text x="444" y="366" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">467</text>
+  <text x="570" y="366" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">79</text>
+  <text x="711" y="366" font-size="15" font-weight="400" fill="#1d324b" text-anchor="middle">0.44580</text>
+</svg>

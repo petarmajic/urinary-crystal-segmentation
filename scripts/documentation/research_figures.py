@@ -6,6 +6,7 @@ import csv
 import json
 from pathlib import Path
 import re
+from xml.etree import ElementTree as ET
 
 import matplotlib
 matplotlib.use('Agg')
@@ -132,32 +133,91 @@ def method():
     t(ax,25,695,'Tensor labels: H × W × C. The architecture is provided by Ultralytics; volumes and fold cells are schematic.',11.5,ha='left',color=MUTED)
     save(fig,'workflow')
 
+# The two README diagrams use live SVG text so labels match the surrounding page.
+FIG_INK = '#1d324b'
+FIG_MUTED = '#4b627b'
+FIG_RULE = '#8499af'
+FIG_BLUE = '#295e9e'
+FIG_TRAIN = '#e5edf7'
+FIG_VAL = '#cae6dc'
+FIG_VAL_INK = '#196551'
+FIG_UNANNOTATED = '#d6d9de'
+
+
+def diagram(height, title, description):
+    svg = ET.Element('svg', {
+        'xmlns': 'http://www.w3.org/2000/svg', 'width': '800', 'height': str(height),
+        'viewBox': f'0 0 800 {height}', 'role': 'img', 'aria-labelledby': 'title desc',
+        'font-family': 'Arial, Helvetica, sans-serif', 'fill': FIG_INK,
+    })
+    ET.SubElement(svg, 'title', id='title').text = title
+    ET.SubElement(svg, 'desc', id='desc').text = description
+    rect(svg, 0, 0, 800, height, 'white')
+    return svg
+
+
+def rect(svg, x, y, w, h, fill, radius=0, stroke='none'):
+    ET.SubElement(svg, 'rect', x=str(x), y=str(y), width=str(w), height=str(h),
+                  rx=str(radius), fill=fill, stroke=stroke)
+
+
+def label(svg, x, y, value, size=15, *, color=FIG_INK, bold=False, anchor='start'):
+    ET.SubElement(svg, 'text', {
+        'x': str(x), 'y': str(y), 'font-size': str(size), 'font-weight': '600' if bold else '400',
+        'fill': color, 'text-anchor': anchor,
+    }).text = str(value)
+
+
+def connector(svg, path, *, arrowhead=False):
+    attrs = {'d': path, 'stroke': FIG_RULE, 'fill': 'none', 'stroke-width': '1.5',
+             'stroke-linecap': 'round', 'stroke-linejoin': 'round'}
+    if arrowhead:
+        attrs['marker-end'] = 'url(#arrow)'
+    ET.SubElement(svg, 'path', attrs)
+
+
+def write_diagram(svg, name):
+    ET.indent(svg)
+    (A / name).write_text(ET.tostring(svg, encoding='unicode') + '\n', encoding='utf-8')
+
+
 def mask_head():
-    """Show which features are shared and which values belong to one detection."""
-    fig, ax = plt.subplots(figsize=(9, 2.55))
-    fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
-    ax.set(xlim=(0, 900), ylim=(255, 0))
-    ax.axis('off')
-    # Inputs and outputs share feature maps; only P3 feeds the prototype branch.
-    for y, name, shape in [(64, 'P3', '128 × 128 × 256'),
-                           (120, 'P4', '64 × 64 × 512'),
-                           (176, 'P5', '32 × 32 × 512')]:
-        t(ax, 24, y, name, 14, ha='left', weight='bold')
-        t(ax, 70, y, shape, 13, ha='left', color=MUTED)
-        ax.plot([222, 252], [y, y], color=MUTED, linewidth=1)
-    ax.plot([252, 252], [64, 176], color=MUTED, linewidth=1)
-    arrow(ax, [(252, 147), (305, 147)], color=MUTED)
-    arrow(ax, [(222, 64), (305, 64)], color=TEAL)
-    t(ax, 24, 24, 'Fused features', 15, ha='left', weight='bold')
-    box(ax, 312, 36, 242, 55, 'Shared prototype maps\n32 maps at 256 × 256', fill='#edf5f0', size=13)
-    box(ax, 312, 113, 242, 72, 'Per detection\nBox, class scores and\n32 mask coefficients', size=13)
-    arrow(ax, [(555, 64), (608, 64), (608, 100), (649, 100)], color=TEAL)
-    arrow(ax, [(555, 147), (608, 147), (608, 122), (649, 122)], color=MUTED)
-    box(ax, 656, 74, 220, 75, 'Weight the prototypes\nCrop and resize the mask', fill='#edf3f8', size=13)
-    t(ax, 766, 180, 'One mask per instance', 14, weight='bold')
-    t(ax, 24, 227, 'YOLO11m-seg   ·   1024 px input   ·   height × width × channels', 12,
-      ha='left', color=MUTED)
-    save(fig, 'instance-mask-head')
+    svg = diagram(250, 'From fused features to one instance mask',
+                  'All three scales feed the detection branch. P3 also provides shared mask prototypes. '
+                  'Each detection weights these prototypes using its mask coefficients.')
+    marker = ET.SubElement(ET.SubElement(svg, 'defs'), 'marker', {
+        'id': 'arrow', 'viewBox': '0 0 8 8', 'refX': '7', 'refY': '4',
+        'markerWidth': '6', 'markerHeight': '6', 'orient': 'auto',
+    })
+    ET.SubElement(marker, 'path', d='M1 1L7 4L1 7', fill='none', stroke=FIG_RULE)
+
+    label(svg, 16, 33, 'Fused features', 18, bold=True)
+    for y, name, shape in [(71, 'P3', '128 × 128 × 256'),
+                           (119, 'P4', '64 × 64 × 512'), (167, 'P5', '32 × 32 × 512')]:
+        label(svg, 16, y+5, name, 16, bold=True, color=FIG_BLUE)
+        label(svg, 52, y+5, shape, 15, color=FIG_MUTED)
+    connector(svg, 'M174 68H227', arrowhead=True)  # P3 alone supplies the prototypes.
+    connector(svg, 'M174 77H182Q188 77 188 83V167')
+    for y in (119, 167):
+        connector(svg, f'M174 {y}H188')
+    connector(svg, 'M188 162H227', arrowhead=True)
+
+    rect(svg, 235, 40, 237, 66, '#f0f5fb', radius=9)
+    label(svg, 249, 65, 'Shared prototypes', 17, bold=True)
+    label(svg, 249, 89, '32 maps at 256 × 256', color=FIG_MUTED)
+    rect(svg, 235, 121, 237, 80, '#f0f5fb', radius=9)
+    label(svg, 249, 146, 'Per detection', 17, bold=True)
+    label(svg, 249, 169, 'Box, class scores and', color=FIG_MUTED)
+    label(svg, 249, 189, '32 mask coefficients', color=FIG_MUTED)
+    connector(svg, 'M476 71H507Q513 71 513 77V97Q513 103 519 103H545', arrowhead=True)
+    connector(svg, 'M476 162H507Q513 162 513 156V135Q513 129 519 129H545', arrowhead=True)
+
+    rect(svg, 553, 77, 235, 86, '#eef7f3', radius=9)
+    label(svg, 568, 103, 'One mask per instance', 17, bold=True, color=FIG_VAL_INK)
+    label(svg, 568, 128, 'Weight the prototypes,', color=FIG_MUTED)
+    label(svg, 568, 149, 'then crop and resize.', color=FIG_MUTED)
+    label(svg, 16, 232, 'YOLO11m-seg   ·   1024 px input   ·   height × width × channels', 14, color=FIG_MUTED)
+    write_diagram(svg, 'mask-prototype-branches.svg')
 
 
 def split_figure():
@@ -178,53 +238,47 @@ def split_figure():
     assert [fold for fold, _, _ in sizes] == list(range(1, 6))
     assert all(train + val == total for _, train, val in sizes)
 
-    fig, ax = plt.subplots(figsize=(8, 4.55))
-    fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
-    ax.set(xlim=(0, 800), ylim=(455, 0))
-    ax.axis('off')
-    train_fill, val_fill, unlabelled_fill = '#dbe5ef', '#15715f', '#e6d7bc'
-
-    def label(x, y, value, size=11, **kwargs):
-        t(ax, x, y, value, size, **kwargs)
-
-    label(20, 25, f'(a) Initial image split   ·   {sum(splits)} source images', 14, ha='left', weight='bold')
-    x = 20
-    for count, color in zip(splits, (train_fill, val_fill, unlabelled_fill)):
-        width = 760 * count / sum(splits)
-        ax.add_patch(Rectangle((x, 49), width, 22, facecolor=color, edgecolor='white'))
+    svg = diagram(384, 'Image splits and five-fold cross-validation',
+                  'The first panel divides the original collection by use. In the second panel, '
+                  'each highlighted group is held out once. Scores are from each fold’s best epoch.')
+    label(svg, 16, 28, '(a) Initial image split', 19, bold=True)
+    label(svg, 784, 28, f'{sum(splits)} source images', anchor='end', color=FIG_MUTED)
+    x = 16
+    colors = (FIG_TRAIN, FIG_VAL, FIG_UNANNOTATED)
+    for count, color in zip(splits, colors):
+        width = 768 * count / sum(splits)
+        rect(svg, x, 47, width-1, 17, color)
         x += width
-    for x, count, name, color in zip((20, 271, 536), splits,
-                                      ('training', 'validation', 'unannotated'),
-                                      (train_fill, val_fill, unlabelled_fill)):
-        ax.add_patch(Rectangle((x, 91), 11, 11, facecolor=color, edgecolor='none'))
-        label(x+20, 97, f'{count} {name}', ha='left')
-    ax.plot([20, 780], [127, 127], color=RULE, lw=.7)
+    for x, count, name, color in zip((16, 283, 557), splits,
+                                     ('training', 'validation', 'unannotated'), colors):
+        rect(svg, x, 82, 12, 12, color, radius=3)
+        label(svg, x+20, 93, f'{count} {name}', color=FIG_MUTED)
+    rect(svg, 16, 115, 768, 1, '#d6e0ea')
 
-    label(20, 157, f'(b) Five-fold cross-validation   ·   {total} images', 14, ha='left', weight='bold')
-    label(20, 189, 'YOLO11m-seg   ·   15 classes   ·   multilabel stratification by image', 11,
-          ha='left', color=MUTED)
-    left, grid_width = 84, 282
-    label(left, 228, 'Held-out images in each fold', 11, ha='left', weight='bold')
-    label(445, 228, 'Training images', 11, weight='bold')
-    label(570, 228, 'Best epoch', 11, weight='bold')
-    label(707, 228, 'Mask mAP50–95', 11, weight='bold')
+    label(svg, 16, 146, '(b) Five-fold cross-validation', 19, bold=True)
+    label(svg, 784, 146, f'{total} prepared images', anchor='end', color=FIG_MUTED)
+    label(svg, 16, 171, 'YOLO11m-seg   ·   15 classes   ·   multilabel stratification by image',
+          14, color=FIG_MUTED)
+    left, grid_width = 91, 276
+    label(svg, left, 204, 'Held-out images', 14, bold=True)
+    for x, title in [(444, 'Training images'), (570, 'Best epoch'), (711, 'Mask mAP50–95')]:
+        label(svg, x, 204, title, 14, bold=True, anchor='middle')
     for row, (fold, train, _) in enumerate(sizes):
-        y = 258 + 39 * row
-        label(20, y, f'Fold {fold}', ha='left', weight='bold')
+        y = 222 + 32 * row
+        label(svg, 16, y+16, f'Fold {fold}', bold=True)
         x = left
         for group, _, val in sizes:
             width = grid_width * val / total
             held_out = group == fold
-            ax.add_patch(Rectangle((x, y-13), width, 26, facecolor=val_fill if held_out else train_fill,
-                                   edgecolor='white', linewidth=1.5))
+            rect(svg, x, y, width-3, 22, FIG_VAL if held_out else FIG_TRAIN, radius=4,
+                 stroke='#78ab98' if held_out else 'none')
             if held_out:
-                label(x+width/2, y, str(val), 11, color='white', weight='bold')
+                label(svg, x+(width-3)/2, y+16, val, 14, bold=True, color=FIG_VAL_INK, anchor='middle')
             x += width
         epoch, score = results[f'fold_{fold}']
-        label(445, y, str(train))
-        label(570, y, str(epoch))
-        label(707, y, f'{score:.5f}')
-    save(fig, 'fold-assignments-and-scores')
+        for x, value in [(444, train), (570, epoch), (711, f'{score:.5f}')]:
+            label(svg, x, y+16, value, anchor='middle')
+    write_diagram(svg, 'validation-fold-layout.svg')
 
 
 def support_chart():
