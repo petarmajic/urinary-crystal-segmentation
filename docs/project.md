@@ -2,17 +2,17 @@
 
 ## Problem
 
-Microscopy images can contain several urinary crystal species and multiple objects of each species. Folder names and filenames help identify the contents of an image, but they do not label each crystal. This project uses instance segmentation to locate crystals and assign a class to each instance.
+Microscopy images can contain several urinary crystal species and multiple objects of each species. A filename can identify a species without telling us which pixels belong to it. I used instance segmentation so that two touching crystals could each have a class and a mask.
 
 ## Academic context
 
-The work was completed for the **Research and Innovation Project (PRI)** at **Polytech Tours, Université de Tours**, during my Erasmus exchange. It involved **CHU Orléans** and was supervised by **Gilles Venturini** and **Barthélémy Serres**.
+I completed the work for the **Research and Innovation Project (PRI)** at **Polytech Tours, Université de Tours**, during my Erasmus exchange. I worked with **CHU Orléans** under the supervision of **Gilles Venturini** and **Barthélémy Serres**.
 
-The report, *Detection of crystals in medical images — Research and Innovation Project*, is dated February 2026; the poster identifies the academic year 2025–2026.
+The report, *Detection of crystals in medical images — Research and Innovation Project*, is dated February 2026. The poster lists the academic year as 2025–2026.
 
 ## My contribution
 
-I reviewed the images, extracted filename metadata and matched images to their polygon annotations. I then merged different labels for the same species, removed classes with too few examples and prepared the training sets. I fine-tuned the YOLO segmentation models and analysed the results across five validation folds. The report, poster and recorded presentation describe the methods and results.
+I matched the images to their polygon files and checked how often each species appeared. Some species had two labels in the export, so I merged those aliases before filtering rare classes. I fine-tuned two pretrained YOLO11 segmentation models and analysed their mask metrics across five validation folds.
 
 CHU Orléans medical engineers produced the manual CVAT polygon annotations used for training and validation. Their coding guide and dataset notes explain the species names and filename abbreviations.
 
@@ -23,4 +23,4 @@ CHU Orléans medical engineers produced the manual CVAT polygon annotations used
 | Model training and evaluation | Notebook cells 24, 26–27 and 37–38; [experiment results](experiments.md) |
 | Technical communication | [Report](reports/project-report.pdf), [poster and presentation](media-guide.md) |
 
-The results describe a research experiment on the supplied dataset. Clinical reliability and hospital deployment were not evaluated.
+I evaluated the models on image-level folds from the supplied collection. The project did not include a clinical evaluation or hospital deployment.

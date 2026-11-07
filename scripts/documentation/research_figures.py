@@ -2,10 +2,13 @@
 
 No training, inference or annotation changes. The model drawing is schematic.
 """
+import base64
 import csv
+from io import BytesIO
 import json
 from pathlib import Path
 import re
+from xml.etree import ElementTree as ET
 
 import matplotlib
 matplotlib.use('Agg')
@@ -132,20 +135,166 @@ def method():
     t(ax,25,695,'Tensor labels: H × W × C. The architecture is provided by Ultralytics; volumes and fold cells are schematic.',11.5,ha='left',color=MUTED)
     save(fig,'workflow')
 
-def fold_chart():
-    with (ROOT/'results/recorded-fold-metrics.csv').open() as f:
-        rows=[r for r in csv.DictReader(f) if r['experiment']=='yolo11m_drop4_15_classes']
-    vals=np.array([float(r['mask_map50_95']) for r in rows]);mean=vals.mean();sd=vals.std(ddof=1)
-    assert len(vals)==5 and abs(mean-.4874)<.0001 and abs(sd-.0453)<.0001
-    fig,ax=plt.subplots(figsize=(10,3.0));fig.subplots_adjust(left=.09,right=.975,bottom=.21,top=.90)
-    ax.axhspan(mean-sd,mean+sd,color=TEAL,alpha=.08)
-    ax.axhline(mean,color=TEAL,lw=1.3,label=f'Mean {mean:.4f} ± {sd:.4f} SD')
-    ax.scatter(range(1,6),vals,color=BLUE,s=46,zorder=3)
-    for i,v in enumerate(vals,1):ax.annotate(f'{v:.3f}',(i,v),xytext=(0,9),textcoords='offset points',ha='center',fontsize=12)
-    ax.set(xlim=(.6,5.4),ylim=(.35,.62),xticks=range(1,6),xticklabels=[f'Fold {i}' for i in range(1,6)],ylabel='Mask mAP50–95')
-    ax.spines[['top','right','bottom']].set_visible(False);ax.grid(axis='y',color='#e7edf1',lw=.7);ax.set_axisbelow(True)
-    ax.legend(frameon=False,loc='lower right',fontsize=11)
-    save(fig,'fold-validation')
+# The two README diagrams use live SVG text so labels match the surrounding page.
+FIG_INK = '#1d324b'
+FIG_MUTED = '#4b627b'
+FIG_RULE = '#8499af'
+FIG_BLUE = '#295e9e'
+FIG_TRAIN = '#e5edf7'
+FIG_VAL = '#cae6dc'
+FIG_VAL_INK = '#196551'
+FIG_UNANNOTATED = '#d6d9de'
+
+
+def diagram(height, title, description):
+    svg = ET.Element('svg', {
+        'xmlns': 'http://www.w3.org/2000/svg', 'width': '800', 'height': str(height),
+        'viewBox': f'0 0 800 {height}', 'role': 'img', 'aria-labelledby': 'title desc',
+        'font-family': 'Arial, Helvetica, sans-serif', 'fill': FIG_INK,
+    })
+    ET.SubElement(svg, 'title', id='title').text = title
+    ET.SubElement(svg, 'desc', id='desc').text = description
+    rect(svg, 0, 0, 800, height, 'white')
+    return svg
+
+
+def rect(svg, x, y, w, h, fill, radius=0, stroke='none'):
+    ET.SubElement(svg, 'rect', x=str(x), y=str(y), width=str(w), height=str(h),
+                  rx=str(radius), fill=fill, stroke=stroke)
+
+
+def label(svg, x, y, value, size=15, *, color=FIG_INK, bold=False, anchor='start'):
+    ET.SubElement(svg, 'text', {
+        'x': str(x), 'y': str(y), 'font-size': str(size), 'font-weight': '600' if bold else '400',
+        'fill': color, 'text-anchor': anchor,
+    }).text = str(value)
+
+
+def connector(svg, path, *, arrowhead=False):
+    attrs = {'d': path, 'stroke': FIG_RULE, 'fill': 'none', 'stroke-width': '1.5',
+             'stroke-linecap': 'round', 'stroke-linejoin': 'round'}
+    if arrowhead:
+        attrs['marker-end'] = 'url(#arrow)'
+    ET.SubElement(svg, 'path', attrs)
+
+
+def write_diagram(svg, name):
+    ET.indent(svg)
+    (A / name).write_text(ET.tostring(svg, encoding='unicode') + '\n', encoding='utf-8')
+
+
+def microscopy_tile(svg, image, x, y, width, height):
+    buffer = BytesIO()
+    image.save(buffer, format='JPEG', quality=92)
+    encoded = base64.b64encode(buffer.getvalue()).decode('ascii')
+    ET.SubElement(svg, 'image', x=str(x), y=str(y), width=str(width), height=str(height),
+                  href=f'data:image/jpeg;base64,{encoded}')
+
+
+def mask_head():
+    svg = diagram(236, 'How YOLO11m-seg outlines a single crystal',
+                  'The marked crystal in the input field corresponds to the enlarged prediction on the right. '
+                  'YOLO11m-seg combines 32 prototype maps shared across the image using 32 weights for one detection.')
+    marker = ET.SubElement(ET.SubElement(svg, 'defs'), 'marker', {
+        'id': 'arrow', 'viewBox': '0 0 8 8', 'refX': '7', 'refY': '4',
+        'markerWidth': '6', 'markerHeight': '6', 'orient': 'auto',
+    })
+    ET.SubElement(marker, 'path', d='M1 1L7 4L1 7', fill='none', stroke=FIG_RULE)
+
+    label(svg, 16, 32, 'Microscopy field', 18, bold=True)
+    source = ROOT / 'data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/C2_taill_heter_lb.jpg'
+    with Image.open(source) as field:
+        field.thumbnail((390, 265))
+        microscopy_tile(svg, field, 16, 64, 192, 130)
+    # Visual locator on the source field, not a model-generated detection box.
+    ET.SubElement(svg, 'circle', cx='129', cy='178', r='13', fill='none',
+                  stroke='white', attrib={'stroke-width': '4'})
+    ET.SubElement(svg, 'circle', cx='129', cy='178', r='13', fill='none',
+                  stroke=FIG_BLUE, attrib={'stroke-width': '2'})
+    label(svg, 16, 219, 'Circled crystal: weddellite', 14, color=FIG_MUTED)
+
+    connector(svg, 'M211 111H225Q230 111 230 106V79Q230 74 235 74H248', arrowhead=True)
+    connector(svg, 'M211 135H225Q230 135 230 140V170Q230 175 235 175H248', arrowhead=True)
+    rect(svg, 256, 39, 255, 73, '#f0f5fb', radius=9)
+    label(svg, 270, 67, 'Once per image', 17, bold=True)
+    label(svg, 270, 93, '32 prototype maps at 256 × 256', 15, color=FIG_MUTED)
+    rect(svg, 256, 139, 255, 73, '#f0f5fb', radius=9)
+    label(svg, 270, 167, 'For the circled crystal', 17, bold=True)
+    label(svg, 270, 193, 'A box and 32 mask weights', 15, color=FIG_MUTED)
+
+    connector(svg, 'M515 75H531Q536 75 536 80V115Q536 120 541 120H559', arrowhead=True)
+    connector(svg, 'M515 175H531Q536 175 536 170V136Q536 131 541 131H559', arrowhead=True)
+    rect(svg, 567, 39, 217, 173, '#eef7f3', radius=9)
+    label(svg, 581, 65, 'One instance mask', 17, color=FIG_VAL_INK, bold=True)
+    with Image.open(A/'validation-predictions.jpg') as report:
+        # The lower crystal in report Figure 6.3, row 2, column 3.
+        zoom = report.crop((1606, 816, 1701, 880))
+        microscopy_tile(svg, zoom, 581, 81, 108, 73)
+    label(svg, 581, 177, 'Combine the maps, then', 15, color=FIG_MUTED)
+    label(svg, 581, 197, 'crop to the predicted box.', 15, color=FIG_MUTED)
+    write_diagram(svg, 'single-crystal-mask.svg')
+
+
+def split_figure():
+    directory = ROOT / 'data' / 'annotated'
+    splits = []
+    for name in ('train', 'val', 'test'):
+        lines = (directory / f'{name}_split.txt').read_text().splitlines()
+        splits.append(sum(bool(line.strip()) for line in lines))
+
+    cells = json.loads((ROOT / 'notebooks/PRI_train.ipynb').read_text())['cells']
+    output = ''.join(''.join(item.get('text', [])) for item in cells[36]['outputs'])
+    sizes = [(int(fold), int(train), int(val)) for fold, train, val in
+             re.findall(r'Fold (\d+): train=(\d+) val=(\d+)', output)]
+    with (ROOT / 'results/recorded-fold-metrics.csv').open() as stream:
+        results = {row['fold']: (int(row['epoch']), float(row['mask_map50_95']))
+                   for row in csv.DictReader(stream) if row['experiment'] == 'yolo11m_drop4_15_classes'}
+    total = sum(val for _, _, val in sizes)
+    assert [fold for fold, _, _ in sizes] == list(range(1, 6))
+    assert all(train + val == total for _, train, val in sizes)
+
+    svg = diagram(384, 'Image splits and five-fold cross-validation',
+                  'The first panel divides the original collection by use. In the second panel, '
+                  'each highlighted group is held out once. Scores are from each fold’s best epoch.')
+    label(svg, 16, 28, '(a) Initial image split', 19, bold=True)
+    label(svg, 784, 28, f'{sum(splits)} source images', anchor='end', color=FIG_MUTED)
+    x = 16
+    colors = (FIG_TRAIN, FIG_VAL, FIG_UNANNOTATED)
+    for count, color in zip(splits, colors):
+        width = 768 * count / sum(splits)
+        rect(svg, x, 47, width-1, 17, color)
+        x += width
+    for x, count, name, color in zip((16, 283, 557), splits,
+                                     ('training', 'validation', 'unannotated'), colors):
+        rect(svg, x, 82, 12, 12, color, radius=3)
+        label(svg, x+20, 93, f'{count} {name}', color=FIG_MUTED)
+    rect(svg, 16, 115, 768, 1, '#d6e0ea')
+
+    label(svg, 16, 146, '(b) Five-fold cross-validation', 19, bold=True)
+    label(svg, 784, 146, f'{total} prepared images', anchor='end', color=FIG_MUTED)
+    label(svg, 16, 171, 'YOLO11m-seg   ·   15 classes   ·   multilabel stratification by image',
+          14, color=FIG_MUTED)
+    left, grid_width = 91, 276
+    label(svg, left, 204, 'Held-out images', 14, bold=True)
+    for x, title in [(444, 'Training images'), (570, 'Best epoch'), (711, 'Mask mAP50–95')]:
+        label(svg, x, 204, title, 14, bold=True, anchor='middle')
+    for row, (fold, train, _) in enumerate(sizes):
+        y = 222 + 32 * row
+        label(svg, 16, y+16, f'Fold {fold}', bold=True)
+        x = left
+        for group, _, val in sizes:
+            width = grid_width * val / total
+            held_out = group == fold
+            rect(svg, x, y, width-3, 22, FIG_VAL if held_out else FIG_TRAIN, radius=4,
+                 stroke='#78ab98' if held_out else 'none')
+            if held_out:
+                label(svg, x+(width-3)/2, y+16, val, 14, bold=True, color=FIG_VAL_INK, anchor='middle')
+            x += width
+        epoch, score = results[f'fold_{fold}']
+        for x, value in [(444, train), (570, epoch), (711, f'{score:.5f}')]:
+            label(svg, x, y+16, value, anchor='middle')
+    write_diagram(svg, 'validation-fold-layout.svg')
+
 
 def support_chart():
     with (ROOT/'metadata/derived/drop4-class-support.csv').open() as f:rows=list(csv.DictReader(f))
@@ -181,6 +330,27 @@ def annotation_example():
         axes[1].add_patch(Polygon(xy,closed=True,fill=False,edgecolor='#e9fff5',lw=1.1))
     save(fig,'annotation-example')
 
+    with Image.open(A/'validation-predictions.jpg') as report:
+        # Figure 6.3 is a 3-column collage. Row 2, column 3 is the same C2 field.
+        assert report.size == (1920, 1341)
+        prediction = report.crop((1280, 448, 1920, 896))
+    preview_panel(im, 'Expert annotation', 'Seven C2 polygons', 'weddellite-expert', polygons)
+    preview_panel(prediction, 'Model prediction', 'Report figure 6.3', 'weddellite-prediction')
+
+
+def preview_panel(image, title, subtitle, filename, polygons=()):
+    fig = plt.figure(figsize=(4.8, 3.9))
+    fig.text(.025, .925, title, fontsize=16, weight='bold', fontfamily='DejaVu Sans')
+    fig.text(.025, .855, subtitle, fontsize=12, color=MUTED, fontfamily='DejaVu Sans')
+    ax = fig.add_axes([.025, .025, .95, .78])
+    ax.imshow(image)
+    for xy in polygons:
+        ax.add_patch(Polygon(xy, closed=True, facecolor='#23b897', alpha=.25, lw=0))
+        ax.add_patch(Polygon(xy, closed=True, fill=False, edgecolor='#effff9', lw=1.2))
+    ax.axis('off')
+    fig.savefig(A/f'{filename}.jpg', dpi=175, pil_kwargs={'quality': 93})
+    plt.close(fig)
+
 if __name__=='__main__':
-    model_evidence();method();fold_chart();support_chart();annotation_example()
-    print('Extracted model summary; generated four research figures from saved evidence.')
+    model_evidence();method();mask_head();split_figure();support_chart();annotation_example()
+    print('Extracted model summary; generated five figures and two microscopy previews.')
