@@ -15,7 +15,9 @@ The report contains the full method and experiments. The poster and its 2:17 rec
 
 [![Original validation collage from report Figure 6.3](../assets/validation-predictions.jpg)](../assets/validation-predictions.jpg)
 
-**Report Figure 6.3, PDF page 23.** Predicted instance masks, class labels and confidence scores across several microscopy fields. The figure does not identify the model, fold or checkpoint, so it cannot be linked to a specific row in the metric table.
+**Figure 1.** Predicted crystal masks, class labels and confidence scores across microscopy fields (report Figure 6.3, PDF page 23).
+
+The report does not identify the model, fold or checkpoint, so it cannot be linked to a specific row in the metric table.
 
 The [README](../README.md#one-microscopy-field) pairs the weddellite field from row 2, column 3 of this collage with the seven expert polygons for the same field. The confidence values come from the printed predictions. The green text at the left edge belongs to the adjacent panel in the source collage.
 

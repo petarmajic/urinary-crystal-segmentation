@@ -39,7 +39,9 @@ The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](
 | 5 | 79 | 0.64486 | 0.59843 | 0.65183 | 0.44580 |
 | **Mean ± SD** | — | **0.7022 ± 0.0335** | **0.6306 ± 0.0513** | **0.6813 ± 0.0427** | **0.4874 ± 0.0453** |
 
-![Initial image split and the five validation groups used for YOLO11m-seg. Each row lists the size of its training set and the mask mAP50–95 for its held-out group.](../assets/image-splits-and-folds.svg)
+![Initial image split and the five validation groups used for YOLO11m-seg. Each row lists the size of its training set and the mask mAP50–95 for its held-out group.](../assets/fold-assignments-and-scores.svg)
+
+**Figure 1.** Initial image split (a) and five-fold validation on the 15-class dataset (b). The epoch and mask mAP50–95 refer to the same selected row in each fold’s training log.
 
 Fold 2 had the lowest selected score (0.43539 at epoch 86) and fold 1 the highest (0.54213 at epoch 74). The SD in the table describes the variation across the five selected scores.
 

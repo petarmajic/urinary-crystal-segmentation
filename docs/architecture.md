@@ -4,7 +4,7 @@ I fine-tuned Ultralytics **YOLO11m-seg** from `yolo11m-seg.pt` to segment 15 cla
 
 ![Dataset preparation, five-fold validation design and the multiscale YOLO11m-seg segmentation architecture.](../assets/workflow.svg)
 
-**Figure 1.** (a) Images and expert polygon annotations are prepared for five-fold validation. (b) The model combines multiscale feature maps with mask prototypes and instance-specific coefficients. Tensor labels use height × width × channels. The microscopy image illustrates the source collection; volumes and fold cells are schematic.
+**Figure 1.** (a) Preparation of the annotated images for five-fold validation. (b) Multiscale features and mask prediction in YOLO11m-seg. The feature volumes and fold cells are schematic.
 
 ## Dataset preparation
 

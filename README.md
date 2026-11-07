@@ -6,12 +6,14 @@ A single microscopy image can contain several crystals, sometimes of different s
 
 ## One microscopy field
 
-Both panels show the same field of weddellite crystals. The expert marked **seven instances of C2**. In the report, the model labelled the large crystal on the left as C2 with a displayed confidence of 1.0. It gave a smaller crystal near the centre the same label with a confidence of 0.5.
+The model labelled the large crystal on the left and a smaller one near the centre as weddellite (C2). Their displayed confidence scores were 1.0 and 0.5, respectively.
 
 <a href="assets/weddellite-expert.jpg"><img src="assets/weddellite-expert.jpg" alt="Expert polygons outlining seven weddellite crystals in the microscopy field." width="370"></a>
 <a href="assets/weddellite-prediction.jpg"><img src="assets/weddellite-prediction.jpg" alt="The same field in report Figure 6.3, with predicted C2 masks, labels and confidence scores." width="370"></a>
 
-The prediction is a crop of report Figure 6.3. The report does not identify its model, fold or checkpoint. [Original image and expert polygons](docs/data.md#annotation-example) · [Full prediction collage](docs/media-guide.md#prediction-collage).
+**Figure 1.** Expert polygons for seven C2 crystals (left) and predicted instance masks on the same field (right, report Figure 6.3).
+
+The report does not identify the model, fold or checkpoint for this prediction. [Original image and expert polygons](docs/data.md#annotation-example) · [Full prediction collage](docs/media-guide.md#prediction-collage).
 
 ## Making sense of the filenames
 
@@ -47,13 +49,17 @@ YOLO11m-seg uses three feature scales to predict boxes and class scores. It also
 
 ![Three fused feature scales feed the detection head. P3 also feeds the prototype branch. Each detection combines the shared prototypes with its own coefficients to form a mask.](assets/instance-mask-head.svg)
 
+**Figure 2.** YOLO11m-seg combines shared mask prototypes with coefficients predicted for each detection to form an instance mask.
+
 ## Training and validation
 
-My first split assigned 490 images to training and 123 to validation. Another 46 had no annotations. After preparing the 15-class dataset, I made a new split across all 583 retained images. I used multilabel stratification because one field could contain several species.
+I initially split the 613 annotated images into 490 for training and 123 for validation. The other 46 source images had no annotations. For the 15-class experiment, I built new folds from all 583 retained images. Each field could contain several classes, so I stratified the folds using a binary vector of class presence for each image.
 
-![Original split of 659 images and five runs on the prepared dataset. Each run holds out a different group of images. The right-hand columns give the number used for training and the validation mask score.](assets/image-splits-and-folds.svg)
+![Initial split of 659 images and five-fold validation on 583 retained images. Each row shows its held-out count, training count, best epoch and validation mask score.](assets/fold-assignments-and-scores.svg)
 
-Read each row as a fresh training run starting from pretrained weights. In run 1, I trained on 469 images and validated on the first group of 114. In run 2, those 114 returned to training and the next 120 formed the validation set. Across the five runs, each image served as validation once. [Fold sizes and split settings](docs/data.md#trainvalidation-strategy) · [Notebook guide](notebooks/README.md).
+**Figure 3.** (a) Initial split of the source collection. (b) Each green block gives the number of held-out images in one fold. The score comes from the epoch with the highest validation mask mAP50–95 in that fold.
+
+I trained a fresh model on four groups per fold, starting from the same pretrained weights. Each image was held out exactly once. [Fold sizes and split settings](docs/data.md#trainvalidation-strategy) · [Notebook guide](notebooks/README.md).
 
 | Model | Training set | Input and training budget | Epoch used in the summary |
 | --- | --- | --- | --- |
@@ -73,6 +79,7 @@ The folds were split by image. Related views of the same specimen could fall int
 | Recorded presentation · 2:17 | Project poster |
 | :---: | :---: |
 | [<img src="assets/video-preview.jpg" alt="Recorded project presentation" height="200">](docs/media/project-presentation.mp4) | [<img src="assets/poster-preview.jpg" alt="Project poster" height="200">](docs/reports/project-poster.pdf) |
+| **Figure 4.** Frame from the recorded poster presentation. | **Figure 5.** Project poster showing microscopy fields and predicted crystal masks. |
 
 [Defence slides](docs/presentations/project-defence.pptx)
 

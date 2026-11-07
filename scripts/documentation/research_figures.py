@@ -172,8 +172,8 @@ def split_figure():
     sizes = [(int(fold), int(train), int(val)) for fold, train, val in
              re.findall(r'Fold (\d+): train=(\d+) val=(\d+)', output)]
     with (ROOT / 'results/recorded-fold-metrics.csv').open() as stream:
-        scores = {row['fold']: float(row['mask_map50_95']) for row in csv.DictReader(stream)
-                  if row['experiment'] == 'yolo11m_drop4_15_classes'}
+        results = {row['fold']: (int(row['epoch']), float(row['mask_map50_95']))
+                   for row in csv.DictReader(stream) if row['experiment'] == 'yolo11m_drop4_15_classes'}
     total = sum(val for _, _, val in sizes)
     assert [fold for fold, _, _ in sizes] == list(range(1, 6))
     assert all(train + val == total for _, train, val in sizes)
@@ -185,9 +185,9 @@ def split_figure():
     train_fill, val_fill, unlabelled_fill = '#dbe5ef', '#15715f', '#e6d7bc'
 
     def label(x, y, value, size=11, **kwargs):
-        t(ax, x, y, value, size, fontfamily='DejaVu Sans', **kwargs)
+        t(ax, x, y, value, size, **kwargs)
 
-    label(20, 25, f'Original split  ·  {sum(splits)} source images', 14, ha='left', weight='bold')
+    label(20, 25, f'(a) Initial image split   ·   {sum(splits)} source images', 14, ha='left', weight='bold')
     x = 20
     for count, color in zip(splits, (train_fill, val_fill, unlabelled_fill)):
         width = 760 * count / sum(splits)
@@ -200,16 +200,17 @@ def split_figure():
         label(x+20, 97, f'{count} {name}', ha='left')
     ax.plot([20, 780], [127, 127], color=RULE, lw=.7)
 
-    label(20, 157, f'Five-fold validation  ·  {total} prepared images', 14, ha='left', weight='bold')
-    label(20, 189, 'YOLO11m-seg  ·  15 classes  ·  green = held out for validation', 11,
+    label(20, 157, f'(b) Five-fold cross-validation   ·   {total} images', 14, ha='left', weight='bold')
+    label(20, 189, 'YOLO11m-seg   ·   15 classes   ·   multilabel stratification by image', 11,
           ha='left', color=MUTED)
-    left, grid_width = 105, 403
-    label(left, 228, 'Image groups', 11, ha='left', weight='bold')
-    label(576, 228, 'Train', 11, weight='bold')
+    left, grid_width = 84, 282
+    label(left, 228, 'Held-out images in each fold', 11, ha='left', weight='bold')
+    label(445, 228, 'Training images', 11, weight='bold')
+    label(570, 228, 'Best epoch', 11, weight='bold')
     label(707, 228, 'Mask mAP50–95', 11, weight='bold')
     for row, (fold, train, _) in enumerate(sizes):
         y = 258 + 39 * row
-        label(20, y, f'Run {fold}', ha='left', weight='bold')
+        label(20, y, f'Fold {fold}', ha='left', weight='bold')
         x = left
         for group, _, val in sizes:
             width = grid_width * val / total
@@ -219,9 +220,11 @@ def split_figure():
             if held_out:
                 label(x+width/2, y, str(val), 11, color='white', weight='bold')
             x += width
-        label(576, y, str(train))
-        label(707, y, f"{scores[f'fold_{fold}']:.5f}")
-    save(fig, 'image-splits-and-folds')
+        epoch, score = results[f'fold_{fold}']
+        label(445, y, str(train))
+        label(570, y, str(epoch))
+        label(707, y, f'{score:.5f}')
+    save(fig, 'fold-assignments-and-scores')
 
 
 def support_chart():

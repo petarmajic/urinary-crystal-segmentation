@@ -68,6 +68,8 @@ The polygons add up to **7,371 instances**. One image can appear in several clas
 
 ![Original microscopy field alongside all seven C2 weddellite polygons from the expert annotation file.](../assets/annotation-example.svg)
 
+**Figure 1.** The source field (left) and its seven expert weddellite polygons (right).
+
 The field is `C2_taill_heter_lb.jpg` from `data/annotated/images/train/cristaux_01/Database/weddellite octaedrique/`. The matching `.txt` file under `data/annotated/labels/train/` contains seven polygons, all assigned source ID **15 / C2_weddellite**. That source ID maps to **4** in the retained 15-class vocabulary.
 
 I scaled the normalised vertices to the image dimensions to draw all seven expert polygons on the original field. [Full source vocabulary](../data/annotated/data.yaml) · [Recorded model predictions](media-guide.md#prediction-collage).
@@ -75,6 +77,8 @@ I scaled the normalised vertices to the image dimensions to draw all seven exper
 ## Images and objects per class
 
 ![Recorded image and instance support for each of the 15 retained classes](../assets/class-support.svg)
+
+**Figure 2.** Images containing each retained class (left) and annotated instances of that class (right), before fold assignment.
 
 Calcite (CAL) has 980 annotated instances in just 23 images. Weddellite (C2) has 485 instances spread across 135 images. Counting images as well as objects shows how many different fields the model sees for each class. [Counts from cell 35](../metadata/derived/drop4-class-support.csv).
 
