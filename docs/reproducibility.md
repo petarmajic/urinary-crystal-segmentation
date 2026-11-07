@@ -47,4 +47,4 @@ With Matplotlib, NumPy and Pillow installed, run the following from the reposito
 python scripts/documentation/research_figures.py
 ```
 
-The script extracts the 24-row module table from cell 37. It then writes the five SVG figures and the two JPEG previews from the fold metrics, class counts, expert polygons and report collage. This step uses the saved results and does not require training weights. [Figure sources](../assets/README.md).
+The script extracts the 24-row module table from cell 37. It then writes the five SVG figures and the two JPEG previews from the original split lists, notebook fold sizes, recorded metrics, class counts, expert polygons and report collage. This step uses the saved results and does not require training weights. [Figure sources](../assets/README.md).

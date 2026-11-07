@@ -13,6 +13,18 @@ Both panels show the same field of weddellite crystals. The expert marked **seve
 
 The prediction is a crop of report Figure 6.3. The report does not identify its model, fold or checkpoint. [Original image and expert polygons](docs/data.md#annotation-example) · [Full prediction collage](docs/media-guide.md#prediction-collage).
 
+## Making sense of the filenames
+
+The hospital organised the images into species folders, but a folder called `whewellite` could also contain fields with weddellite. Some filenames named both species, some recorded the lighting or pH, and others contained only a registration number. I used the hospital’s coding guide to map these variations to consistent CSV fields while keeping the original filenames and paths.
+
+| Original filename | What I recorded |
+| --- | --- |
+| `C1 (+C2)_intoxication Ethylene_glycol (EG)_3.tif` | The filename identified both whewellite (C1) and weddellite (C2) in the `whewellite` folder. The row records both species, `mixture = Yes` and the abbreviation `EG`. |
+| `P9130977.JPG` | The filename gave no species. I took C1 from the folder and recorded that fallback in `notes`. |
+| `calcite_pH85_C8097.jpg` | I mapped calcite to CAL and decoded `pH85` as `8.5`. |
+
+The resulting CSV has **659 rows**, one per image. The parser found multiple species codes in **78 rows** and a pH value in **65**. In **89 rows**, neither the filename nor the folder yielded a recognised species. I kept those fields empty. The experts’ polygons supplied the training labels. [Metadata CSV](metadata/image_metadata.csv) · [Parsing script](scripts/preprocessing/data_preprocessing_image_metadata.py) · [Worked examples](metadata/README.md#examples-from-the-report).
+
 ## From expert polygons to training labels
 
 I started with **659 source images** and a CVAT export with **41 class IDs**. Some IDs referred to the same species. For example, the export listed brushite under both `brushite` and `Br_brushite`. I merged five such aliases before counting how many images contained each class.
@@ -29,8 +41,6 @@ I used classes present in at least five labelled images for the first experiment
 
 ¹ Original training label. [Class IDs and counts by image and instance](docs/data.md#segmentation-classes).
 
-I used the hospital’s coding guide to extract species and acquisition details from filenames into a 659-row metadata table. This helped me review the collection. Training used the images and expert polygons. [Metadata script](scripts/preprocessing/data_preprocessing_image_metadata.py) · [Image metadata](metadata/image_metadata.csv).
-
 ## How the model predicts a mask
 
 YOLO11m-seg uses three feature scales to predict boxes and class scores. It also learns 32 shared mask patterns for the field. Each detection has its own set of 32 coefficients, so two crystals of the same class can have different outlines. [Full architecture and tensor dimensions](docs/architecture.md).
@@ -39,7 +49,11 @@ YOLO11m-seg uses three feature scales to predict boxes and class scores. It also
 
 ## Training and validation
 
-I started each fold from pretrained Ultralytics weights. Because a field could contain several classes, I used multilabel stratification to split images according to all the classes present. [Notebook guide](notebooks/README.md).
+My first split assigned 490 images to training and 123 to validation. Another 46 had no annotations. After preparing the 15-class dataset, I made a new split across all 583 retained images. I used multilabel stratification because one field could contain several species.
+
+![Original split of 659 images and five runs on the prepared dataset. Each run holds out a different group of images. The right-hand columns give the number used for training and the validation mask score.](assets/image-splits-and-folds.svg)
+
+Read each row as a fresh training run starting from pretrained weights. In run 1, I trained on 469 images and validated on the first group of 114. In run 2, those 114 returned to training and the next 120 formed the validation set. Across the five runs, each image served as validation once. [Fold sizes and split settings](docs/data.md#trainvalidation-strategy) · [Notebook guide](notebooks/README.md).
 
 | Model | Training set | Input and training budget | Epoch used in the summary |
 | --- | --- | --- | --- |
@@ -51,8 +65,6 @@ Across five folds, **YOLO11m-seg reached a mean validation mask mAP50–95 of 0.
 | Mask precision | Mask recall | Mask mAP50 | Mask mAP50–95 |
 | --- | --- | --- | --- |
 | 0.7022 ± 0.0335 | 0.6306 ± 0.0513 | 0.6813 ± 0.0427 | **0.4874 ± 0.0453** |
-
-![Five validation folds, each labelled with its selected epoch and mask mAP50–95. The line marks their mean and the band shows one sample standard deviation.](assets/mask-validation-folds.svg)
 
 The folds were split by image. Related views of the same specimen could fall into different folds. The two experiments also used different class sets, augmentations and epoch-selection rules, which limits what their scores tell us about model size alone. [Per-fold metrics](docs/experiments.md#yolo11m-seg-per-fold-mask-metrics) · [Recorded CSV](results/recorded-fold-metrics.csv).
 

@@ -39,9 +39,9 @@ The local [`train_yolo.py`](../scripts/training/train_yolo.py) and [`hyp.yaml`](
 | 5 | 79 | 0.64486 | 0.59843 | 0.65183 | 0.44580 |
 | **Mean ± SD** | — | **0.7022 ± 0.0335** | **0.6306 ± 0.0513** | **0.6813 ± 0.0427** | **0.4874 ± 0.0453** |
 
-![Mask mAP50–95 values across five validation folds](../assets/mask-validation-folds.svg)
+![Initial image split and the five validation groups used for YOLO11m-seg. Each row lists the size of its training set and the mask mAP50–95 for its held-out group.](../assets/image-splits-and-folds.svg)
 
-Fold 2 had the lowest selected score (0.43539 at epoch 86) and fold 1 the highest (0.54213 at epoch 74). The shaded band shows one sample standard deviation across the five selected scores.
+Fold 2 had the lowest selected score (0.43539 at epoch 86) and fold 1 the highest (0.54213 at epoch 74). The SD in the table describes the variation across the five selected scores.
 
 ## Earlier YOLO11n-seg result
 

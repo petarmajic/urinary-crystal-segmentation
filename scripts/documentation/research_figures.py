@@ -160,29 +160,69 @@ def mask_head():
     save(fig, 'instance-mask-head')
 
 
-def fold_chart():
-    with (ROOT/'results/recorded-fold-metrics.csv').open() as f:
-        rows=[r for r in csv.DictReader(f) if r['experiment']=='yolo11m_drop4_15_classes']
-    vals=np.array([float(r['mask_map50_95']) for r in rows]);mean=vals.mean();sd=vals.std(ddof=1)
-    assert len(vals)==5 and abs(mean-.4874)<.0001 and abs(sd-.0453)<.0001
-    fig, ax = plt.subplots(figsize=(8, 2.9))
-    fig.subplots_adjust(left=.105, right=.97, bottom=.23, top=.83)
-    ax.set_title('Validation mask mAP50–95', loc='left', fontsize=16, weight='bold')
-    ax.axhspan(mean-sd, mean+sd, color=TEAL, alpha=.10)
-    ax.axhline(mean, color=TEAL, lw=1.4)
-    ax.scatter(range(1, 6), vals, color=BLUE, s=48, zorder=3)
-    for fold, score in enumerate(vals, start=1):
-        ax.annotate(f'{score:.4f}', (fold, score), xytext=(0, 9),
-                    textcoords='offset points', ha='center', fontsize=12)
-    ax.text(1, 1.05, f'Mean {mean:.4f}   ·   SD {sd:.4f}',
-            transform=ax.transAxes, ha='right', color=TEAL, fontsize=12)
-    ticks = [f"Fold {i}\nEpoch {row['epoch']}" for i, row in enumerate(rows, start=1)]
-    ax.set(xlim=(.55, 5.45), ylim=(.37, .59), xticks=range(1, 6), xticklabels=ticks)
-    ax.spines[['top','right','bottom']].set_visible(False)
-    ax.tick_params(axis='x', length=0, pad=8)
-    ax.grid(axis='y', color='#e7edf1', lw=.7)
-    ax.set_axisbelow(True)
-    save(fig,'mask-validation-folds')
+def split_figure():
+    directory = ROOT / 'data' / 'annotated'
+    splits = []
+    for name in ('train', 'val', 'test'):
+        lines = (directory / f'{name}_split.txt').read_text().splitlines()
+        splits.append(sum(bool(line.strip()) for line in lines))
+
+    cells = json.loads((ROOT / 'notebooks/PRI_train.ipynb').read_text())['cells']
+    output = ''.join(''.join(item.get('text', [])) for item in cells[36]['outputs'])
+    sizes = [(int(fold), int(train), int(val)) for fold, train, val in
+             re.findall(r'Fold (\d+): train=(\d+) val=(\d+)', output)]
+    with (ROOT / 'results/recorded-fold-metrics.csv').open() as stream:
+        scores = {row['fold']: float(row['mask_map50_95']) for row in csv.DictReader(stream)
+                  if row['experiment'] == 'yolo11m_drop4_15_classes'}
+    total = sum(val for _, _, val in sizes)
+    assert [fold for fold, _, _ in sizes] == list(range(1, 6))
+    assert all(train + val == total for _, train, val in sizes)
+
+    fig, ax = plt.subplots(figsize=(8, 4.55))
+    fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+    ax.set(xlim=(0, 800), ylim=(455, 0))
+    ax.axis('off')
+    train_fill, val_fill, unlabelled_fill = '#dbe5ef', '#15715f', '#e6d7bc'
+
+    def label(x, y, value, size=11, **kwargs):
+        t(ax, x, y, value, size, fontfamily='DejaVu Sans', **kwargs)
+
+    label(20, 25, f'Original split  ·  {sum(splits)} source images', 14, ha='left', weight='bold')
+    x = 20
+    for count, color in zip(splits, (train_fill, val_fill, unlabelled_fill)):
+        width = 760 * count / sum(splits)
+        ax.add_patch(Rectangle((x, 49), width, 22, facecolor=color, edgecolor='white'))
+        x += width
+    for x, count, name, color in zip((20, 271, 536), splits,
+                                      ('training', 'validation', 'unannotated'),
+                                      (train_fill, val_fill, unlabelled_fill)):
+        ax.add_patch(Rectangle((x, 91), 11, 11, facecolor=color, edgecolor='none'))
+        label(x+20, 97, f'{count} {name}', ha='left')
+    ax.plot([20, 780], [127, 127], color=RULE, lw=.7)
+
+    label(20, 157, f'Five-fold validation  ·  {total} prepared images', 14, ha='left', weight='bold')
+    label(20, 189, 'YOLO11m-seg  ·  15 classes  ·  green = held out for validation', 11,
+          ha='left', color=MUTED)
+    left, grid_width = 105, 403
+    label(left, 228, 'Image groups', 11, ha='left', weight='bold')
+    label(576, 228, 'Train', 11, weight='bold')
+    label(707, 228, 'Mask mAP50–95', 11, weight='bold')
+    for row, (fold, train, _) in enumerate(sizes):
+        y = 258 + 39 * row
+        label(20, y, f'Run {fold}', ha='left', weight='bold')
+        x = left
+        for group, _, val in sizes:
+            width = grid_width * val / total
+            held_out = group == fold
+            ax.add_patch(Rectangle((x, y-13), width, 26, facecolor=val_fill if held_out else train_fill,
+                                   edgecolor='white', linewidth=1.5))
+            if held_out:
+                label(x+width/2, y, str(val), 11, color='white', weight='bold')
+            x += width
+        label(576, y, str(train))
+        label(707, y, f"{scores[f'fold_{fold}']:.5f}")
+    save(fig, 'image-splits-and-folds')
+
 
 def support_chart():
     with (ROOT/'metadata/derived/drop4-class-support.csv').open() as f:rows=list(csv.DictReader(f))
@@ -240,5 +280,5 @@ def preview_panel(image, title, subtitle, filename, polygons=()):
     plt.close(fig)
 
 if __name__=='__main__':
-    model_evidence();method();mask_head();fold_chart();support_chart();annotation_example()
+    model_evidence();method();mask_head();split_figure();support_chart();annotation_example()
     print('Extracted model summary; generated five figures and two microscopy previews.')

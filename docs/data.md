@@ -4,7 +4,7 @@
 
 CHU Orléans supplied **659 microscopy images** with different resolutions and lighting conditions. I used species codes in filenames to explore the collection, but one field can contain a mixture. To train a model to outline each crystal, I needed the experts’ polygons. [Initial dataset review](domain-notes/initial-dataset-review-fr.docx).
 
-The [metadata CSV](../metadata/image_metadata.csv) records image names, paths, species inferred from filenames, mixtures, abbreviations and pH. [The field guide](../metadata/README.md) explains how each field was extracted and how it differs from an expert annotation.
+The [metadata CSV](../metadata/image_metadata.csv) records image names, paths, species inferred from filenames, mixtures, abbreviations and pH. [Five examples from the field guide](../metadata/README.md#examples-from-the-report) show how I handled mixtures, folder-based guesses and missing species codes.
 
 ## Preparation stages
 
@@ -92,6 +92,16 @@ The export contains 659 images and 612 nonempty label files. The [data layout](.
 
 The early helper scripts perform random 80/20 splitting with seed 42. The later notebook constructs a binary vector of class presence per image and uses `MultilabelStratifiedKFold(n_splits=5, shuffle=True, random_state=42)`.
 
-Each fold holds out one subset for validation. Fold sizes in the 15-class experiment are **469/114, 463/120, 466/117, 467/116 and 467/116** for train/validation. These are the splits associated with the main reported results. They are distinct from the original random split files.
+Each row below is a separate model trained on the other four groups. The validation groups partition the 583 images, so every image has exactly one turn in validation.
+
+| Run | Training images | Validation images |
+| --- | ---: | ---: |
+| 1 | 469 | 114 |
+| 2 | 463 | 120 |
+| 3 | 466 | 117 |
+| 4 | 467 | 116 |
+| 5 | 467 | 116 |
+
+Cell 36 prints the sizes for the 15-class experiment. For the earlier 19-class dataset of 607 images, report Table 6.3 gives train/validation sizes of 489/118, 483/124, 487/120, 481/126 and 488/119. [Split diagram](../README.md#training-and-validation) · [Report, section 6.3.4](reports/project-report.pdf).
 
 The 46 images listed in `test_split.txt` have no expert polygons to score predictions against. [Experiment interpretation](experiments.md) · [Source split files](../data/README.md).

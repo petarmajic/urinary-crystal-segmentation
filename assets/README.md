@@ -4,7 +4,7 @@ The two images at the top of the README show the same weddellite field, `C2_tail
 
 | Figure | Data or source |
 | --- | --- |
-| [Fold chart](mask-validation-folds.svg) | Five mask mAP50–95 values and selected epochs from cell 38. The line marks their mean and the shaded band shows one sample SD. |
+| [Image splits and validation folds](image-splits-and-folds.svg) | Counts from the three original split lists, train/validation sizes from notebook cell 36 and best-epoch mask scores from cell 38. Each highlighted group is held out once. |
 | [Class counts](class-support.svg) | Image and annotated-instance counts from cell 35. |
 | [Instance mask head](instance-mask-head.svg) | The three fused outputs and mask branches from the cell 37 model. Shapes assume 1024 × 1024 input. |
 | [Architecture and preparation](workflow.svg) | Preparation code and saved YOLO11m-seg module summary, cell 37; architecture mechanics checked against Ultralytics 8.4.14. Volumes and fold cells are schematic. |
